@@ -31,10 +31,6 @@ class ExaltTextCommand(TextCommand):
     def get_parser(self, **kwargs):
         view = self.view
 
-        # The "remove_blank_text" flag needs to be True for pretty-printing to
-        # work. See http://stackoverflow.com/a/9612463/825783.
-        #
-        # TODO: Make "recover" a Sublime setting.
         if View.is_xml(view):
             return etree.XMLParser(**kwargs)
         elif View.is_html(view):
@@ -73,6 +69,10 @@ class ExaltFormatCommand(ExaltTextCommand):
 
         if View.is_xml(view) or View.is_html(view):
             try:
+                # The "remove_blank_text" flag needs to be True for pretty-printing to
+                # work. See http://stackoverflow.com/a/9612463/825783.
+                #
+                # TODO: Make "recover" a Sublime setting.
                 parser = self.get_parser(encoding = encodings.UTF8,
                                          remove_blank_text = True,
                                          recover = True)
