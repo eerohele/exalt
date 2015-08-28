@@ -1,0 +1,14 @@
+<grammar xmlns="http://relaxng.org/ns/structure/1.0">
+   <start>
+      <element name="book">
+         <oneOrMore>
+            <ref name="page"/>
+         </oneOrMore>
+      </element>
+   </start>
+   <define name="page">
+      <element name="page">
+         <text/>
+      </element>
+   </define>
+</grammar>

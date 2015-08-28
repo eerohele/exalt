@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar xmlns="http://relaxng.org/ns/structure/1.0">
+  <define name="xslt10">
+    <externalRef href="xslt10.rng"/>
+  </define>
+  <define name="xslt20">
+    <externalRef href="xslt20.rng"/>
+  </define>
+  <define name="xslt30">
+    <externalRef href="xslt30.rng"/>
+  </define>
+  <start>
+    <choice>
+      <ref name="xslt30"/>
+      <ref name="xslt20"/>
+      <ref name="xslt10"/>
+    </choice>
+  </start>
+</grammar>

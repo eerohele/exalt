@@ -1,0 +1,18 @@
+[
+  {
+    "keys": ["super+ctrl+x"],
+    "command": "markup_format"
+  },
+  {
+    "keys": ["super+ctrl+v"],
+    "command": "markup_validate"
+  },
+  {
+    "keys": ["super+ctrl+e"],
+    "command": "markup_go_to_error"
+  },
+  {
+    "keys": ["super+ctrl+z"],
+    "command": "markup_clear_cache"
+  }
+]

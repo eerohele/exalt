@@ -1,0 +1,18 @@
+[
+  {
+    "caption": "Markup: Format Markup",
+    "command": "markup_format"
+  },
+  {
+    "caption": "Markup: Validate Markup",
+    "command": "markup_validate"
+  },
+  {
+    "caption": "Markup: Go To Error",
+    "command": "markup_go_to_error"
+  },
+  {
+    "caption": "Markup: Clear Parser Cache",
+    "command": "markup_clear_cache"
+  }
+]

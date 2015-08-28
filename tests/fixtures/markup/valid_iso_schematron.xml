@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<?xml-model href="${schema}/section.sch"
+            type="application/xml"
+            schematypens="http://purl.oclc.org/dsdl/schematron"?>
+
+<section>
+  <title>foo</title>
+  <para>bar</para>
+</section>
