@@ -12,21 +12,21 @@
         "children":
         [
           {
-            "caption": "Markup",
+            "caption": "Exalt",
             "children":
             [
               {
                 "caption": "Settings – Default",
                 "command": "open_file", "args":
                 {
-                  "file": "${packages}/Markup/Markup.sublime-settings"
+                  "file": "${packages}/Exalt/Exalt.sublime-settings"
                 }
               },
               {
                 "caption": "Settings – User",
                 "command": "open_file", "args":
                 {
-                  "file": "${packages}/User/Markup.sublime-settings"
+                  "file": "${packages}/User/Exalt.sublime-settings"
                 }
               },
               {
@@ -36,7 +36,7 @@
                   "caption": "Key Bindings – Default",
                   "command": "open_file", "args":
                   {
-                      "file": "${packages}/Markup/Default (OSX).sublime-keymap",
+                      "file": "${packages}/Exalt/Default (OSX).sublime-keymap",
                       "platform": "OSX"
                   }
               },

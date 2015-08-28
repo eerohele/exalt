@@ -1,5 +1,5 @@
-Markup
-======
+Exalt
+=====
 
 If you have the misfortune of having to work with XML, this is the
 [Sublime Text 3][st3] plugin for you.
@@ -16,22 +16,22 @@ Validate XML, XHTML, HTML, and XSLT files on the fly with [lxml][lxml]
 against a [Document Type Definition][dtd] (DTD), an [XML schema][xsd]
 (XSD), a [RelaxNG schema][rng] (RNG), or a [Schematron schema][schematron].
 
-Markup supports [XML catalogs][xml-catalog] via [lxml][lxml] so that you
+Exalt supports [XML catalogs][xml-catalog] via [lxml][lxml] so that you
 don't need to put [unnecessary load on W3C's servers][w3c-dtd].
 
 #### XSLT validation
 
-If the syntax of your current file is set to [XSLT][xslt], Markup automatically
+If the syntax of your current file is set to [XSLT][xslt], Exalt automatically
 validates the file against
 [Norman Walsh's Relax NG grammars for XSLT stylesheets][ndw].
 
 #### XSD validation
 
-Markup uses the `xsi:schemaLocation` or the `xsi:noNamespaceSchemaLocation`
+Exalt uses the `xsi:schemaLocation` or the `xsi:noNamespaceSchemaLocation`
 attribute of the root element to validate against the schema defined in that
 attribute.
 
-This means Markup can validate [Maven][maven] POM files that look like this:
+This means Exalt can validate [Maven][maven] POM files that look like this:
 
 ```xml
 <project xmlns="http://maven.apache.org/POM/4.0.0"
@@ -51,7 +51,7 @@ fetch schemas from the internet. See **Installing** for more information.
 
 #### `xml-model` validation
 
-Markup also supports the [`xml-model`][xml-model] processing instruction. That
+Exalt also supports the [`xml-model`][xml-model] processing instruction. That
 means that you can have a processing instruction like this before the root
 element of your [DITA XML 1.2][dita] document (but *after* the XML declaration,
 of course):
@@ -61,7 +61,7 @@ of course):
             schematypens="http://relaxng.org/ns/structure/1.0"?>
 ```
 
-Markup will then validate against the schema in the `@href` attribute. It
+Exalt will then validate against the schema in the `@href` attribute. It
 uses the XML catalog you've set up to resolve the `@href` and the
 `@schematypens` attribute to determine the the type of the schema.
 
@@ -82,13 +82,13 @@ validation error if it's not already in view.
 
 Press `⌘ + Ctrl + X` to reformat (pretty-print) an XML or HTML file.
 
-Markup tries to format non-well-formed XML files via the [libxml2][libxml2]
+Exalt tries to format non-well-formed XML files via the [libxml2][libxml2]
 `recover` flag.
 
 ## Installing
 
-1. Install Markup via [Package Control][package-control].
-2. (*Optional, but recommended*.) In `User/Markup.sublime-settings`, set the
+1. Install Exalt via [Package Control][package-control].
+2. (*Optional, but recommended*.) In `User/Exalt.sublime-settings`, set the
    path to your [XML catalog files][xml-catalog].
 
     For example:
@@ -100,7 +100,7 @@ Markup tries to format non-well-formed XML files via the [libxml2][libxml2]
     ```
 
     By default, the plugin uses the catalog files defined in
-    `Markup/Markup.sublime-settings`. Those catalog files might or might not
+    `Exalt/Exalt.sublime-settings`. Those catalog files might or might not
     exist on your system.
 
     If you want, you can use my [`markup-schemas`][markup-schemas] repository

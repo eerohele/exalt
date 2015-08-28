@@ -1,13 +1,13 @@
 import os
 import io
 
-import Markup.view as View
-import Markup.messages as messages
-import Markup.encodings as encodings
-import Markup.constants as constants
-import Markup.namespaces as namespaces
-import Markup.utils as utils
-import Markup.markup as markup
+import Exalt.view as View
+import Exalt.messages as messages
+import Exalt.encodings as encodings
+import Exalt.constants as constants
+import Exalt.namespaces as namespaces
+import Exalt.utils as utils
+import Exalt.exalt as exalt
 
 from urllib.request import pathname2url
 from functools import partial
@@ -33,7 +33,7 @@ def get_xslt_relaxng_path(version):
     else:
         v = "10"
 
-    path = os.path.join(markup.get_plugin_path(), "rng", "xslt%s.rng" % v)
+    path = os.path.join(exalt.get_plugin_path(), "rng", "xslt%s.rng" % v)
     return pathname2url(path)
 
 
@@ -156,10 +156,10 @@ def _get_validator(id, parser, **kwargs):
 
     This is probably a pretty stupid way of caching parsers. Suggestions
     appreciated."""
-    validator = markup.parser_cache.get(id) \
-                if id in markup.parser_cache else parser(**kwargs)
+    validator = exalt.parser_cache.get(id) \
+                if id in exalt.parser_cache else parser(**kwargs)
 
-    markup.parser_cache.setdefault(id, validator)
+    exalt.parser_cache.setdefault(id, validator)
     return validator
 
 

@@ -8,8 +8,8 @@ from collections import OrderedDict
 import sublime
 import sublime_plugin
 
-import Markup.constants as constants
-import Markup.settings as settings
+import Exalt.constants as constants
+import Exalt.settings as settings
 
 
 class LimitedOrderedDict(OrderedDict):

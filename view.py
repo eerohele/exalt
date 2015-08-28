@@ -2,10 +2,10 @@ import io
 import os
 import sublime
 
-import Markup.encodings as encodings
-import Markup.constants as constants
-import Markup.settings as settings
-import Markup.markup as markup
+import Exalt.encodings as encodings
+import Exalt.constants as constants
+import Exalt.settings as settings
+import Exalt.exalt as exalt
 
 def set_status(view, message):
     view.set_status(constants.PLUGIN_NAME, message)
@@ -82,7 +82,7 @@ def show_error(view, message, error = None):
         point = get_error_point(view, error)
         region = get_error_region(view, point)
 
-        markup.error_point = point
+        exalt.error_point = point
 
         view.add_regions(constants.PLUGIN_NAME,
                               [region],
@@ -90,7 +90,7 @@ def show_error(view, message, error = None):
                               "dot",
                               constants.SUBLIME_REGION_FLAGS)
 
-        scroll = bool(markup.get_settings()
+        scroll = bool(exalt.get_settings()
                       .get(settings.AUTO_SCROLL_TO_ERROR, False))
 
         if scroll:

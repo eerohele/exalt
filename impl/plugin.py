@@ -6,15 +6,15 @@ import sublime
 
 from sublime_plugin import TextCommand, EventListener
 
-import Markup.messages as messages
-import Markup.encodings as encodings
-import Markup.constants as constants
-import Markup.markup as markup
-import Markup.view as View
+import Exalt.messages as messages
+import Exalt.encodings as encodings
+import Exalt.constants as constants
+import Exalt.exalt as exalt
+import Exalt.view as View
 
 # XML_CATALOG_FILES needs to be set *before* lxml is loaded:
 # http://permalink.gmane.org/gmane.comp.python.lxml.devel/7501
-os.environ["XML_CATALOG_FILES"] = markup.get_catalog_files()
+os.environ["XML_CATALOG_FILES"] = exalt.get_catalog_files()
 
 # lxml is delivered as a Package Control dependency.
 #
@@ -22,12 +22,12 @@ os.environ["XML_CATALOG_FILES"] = markup.get_catalog_files()
 from lxml import etree
 from lxml import isoschematron
 
-import Markup.impl.validator as validator
+import Exalt.impl.validator as validator
 
 invoke_async = sublime.set_timeout_async
 
 
-class MarkupTextCommand(TextCommand):
+class ExaltTextCommand(TextCommand):
     def get_parser(self, **kwargs):
         view = self.view
 
@@ -41,7 +41,7 @@ class MarkupTextCommand(TextCommand):
             return etree.HTMLParser(**kwargs)
         else:
             raise Exception(messages.NO_PARSER_FOR_SYNTAX %
-                            markup.get_syntax(view))
+                            exalt.get_syntax(view))
 
     def parse_view_content(self, parser):
         view = self.view
@@ -52,12 +52,12 @@ class MarkupTextCommand(TextCommand):
             raise Exception(messages.CANNOT_PARSE_EXCEPTION)
 
 
-class MarkupClearCacheCommand(MarkupTextCommand):
+class ExaltClearCacheCommand(ExaltTextCommand):
     def run(self, edit):
-        markup.parser_cache.clear()
+        exalt.parser_cache.clear()
 
 
-class MarkupFormatCommand(MarkupTextCommand):
+class ExaltFormatCommand(ExaltTextCommand):
     def format(self, document):
         encoding = document.docinfo.encoding
 
@@ -84,7 +84,7 @@ class MarkupFormatCommand(MarkupTextCommand):
                 View.reset_status(view)
 
 
-class MarkupValidateCommand(MarkupTextCommand):
+class ExaltValidateCommand(ExaltTextCommand):
     def run(self, edit):
         view = self.view
 
@@ -113,17 +113,17 @@ class MarkupValidateCommand(MarkupTextCommand):
                 return View.show_error(view, message, error)
 
 
-class MarkupGoToErrorCommand(TextCommand):
+class ExaltGoToErrorCommand(TextCommand):
     def run(self, edit):
-        self.view.show_at_center(markup.error_point)
+        self.view.show_at_center(exalt.error_point)
 
 
-class MarkupValidate(EventListener):
+class ExaltValidate(EventListener):
     def on_pre_save_async(self, view):
-        view.run_command("markup_validate")
+        view.run_command("exalt_validate")
 
     def on_load_async(self, view):
-        view.run_command("markup_validate")
+        view.run_command("exalt_validate")
 
     def on_activated_async(self, view):
-        view.run_command("markup_validate")
+        view.run_command("exalt_validate")
