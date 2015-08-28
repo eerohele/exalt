@@ -19,6 +19,12 @@ against a [Document Type Definition][dtd] (DTD), an [XML schema][xsd]
 Markup supports [XML catalogs][xml-catalog] via [lxml][lxml] so that you
 don't need to put [unnecessary load on W3C's servers][w3c-dtd].
 
+#### XSLT validation
+
+If the syntax of your current file is set to [XSLT][xslt], Markup automatically
+validates the file against
+[Norman Walsh's Relax NG grammars for XSLT stylesheets][ndw].
+
 #### XSD validation
 
 Markup uses the `xsi:schemaLocation` or the `xsi:noNamespaceSchemaLocation`
@@ -147,6 +153,7 @@ Markup tries to format non-well-formed XML files via the [libxml2][libxml2]
 [lxml]: http://lxml.de
 [markup-schemas]: https://github.com/eerohele/markup-schemas
 [maven]: https://maven.apache.org
+[ndw]: https://github.com/ndw/xslt-relax-ng
 [package-control]: https://packagecontrol.io
 [py3]: https://www.python.org
 [rng]: http://relaxng.org
@@ -156,3 +163,4 @@ Markup tries to format non-well-formed XML files via the [libxml2][libxml2]
 [xml-catalog]: http://xmlsoft.org/catalog.html
 [xml-model]: http://www.w3.org/TR/xml-model
 [xsd]: http://www.w3.org/XML/Schema
+[xslt]: http://www.w3.org/standards/xml/transformation
