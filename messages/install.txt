@@ -21,9 +21,9 @@ NOTE: Every time you modify the "xml_catalog_files" setting, you have to restart
 Sublime Text 3 for the changes to take effect.
 
 If you don't have an XML catalog, you can install one by using my
-markup-schemas GitHub repository at:
+"catalogs" GitHub repository at:
 
-https://github.com/eerohele/markup-schemas
+https://github.com/eerohele/catalogs
 
 Remember to set the "xml_catalog_files" setting to point to the catalog.xml
 in the repo and restart Sublime Text 3.

@@ -103,17 +103,17 @@ Exalt tries to format non-well-formed XML files via the [libxml2][libxml2]
     `Exalt/Exalt.sublime-settings`. Those catalog files might or might not
     exist on your system.
 
-    If you want, you can use my [`markup-schemas`][markup-schemas] repository
+    If you want, you can use my [`catalogs`][catalogs] repository
     to install a set of commonly used XML catalogs and schemas. Just set the
     `xml_catalog_files` setting of this plugin to point to the `catalog.xml`
     file in where you cloned the repo.
 
-    Alternatively, you can clone[`markup-schemas`][markup-schemas] into
+    Alternatively, you can clone[`catalogs`][catalogs] into
     `/etc/xml` and create `/etc/xml/catalog.xml` with this content:
 
     ```xml
     <catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
-      <nextCatalog catalog="markup-schemas/catalog.xml"/>
+      <nextCatalog catalog="catalogs/catalog.xml"/>
     </catalog>
     ```
     
@@ -151,7 +151,7 @@ Exalt tries to format non-well-formed XML files via the [libxml2][libxml2]
 [libxml2-#753970]: https://bugzilla.gnome.org/show_bug.cgi?id=753970
 [libxml2-#753997]: https://bugzilla.gnome.org/show_bug.cgi?id=753997
 [lxml]: http://lxml.de
-[markup-schemas]: https://github.com/eerohele/markup-schemas
+[catalogs]: https://github.com/eerohele/catalogs
 [maven]: https://maven.apache.org
 [ndw]: https://github.com/ndw/xslt-relax-ng
 [package-control]: https://packagecontrol.io
