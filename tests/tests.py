@@ -9,7 +9,7 @@ import Exalt.messages as messages
 import Exalt.impl.plugin as plugin
 
 # NOTE: These unit tests require that you've cloned the 
-# https://github.com/eerohele/markup-schemas repo (or an otherwise sufficient
+# https://github.com/eerohele/catalogs repo (or an otherwise sufficient
 # set of XML catalogs) and have set up Exalt to use those catalogs.
 
 def read_file(path):
