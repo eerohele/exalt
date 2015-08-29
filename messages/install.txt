@@ -1,15 +1,15 @@
-Markup
-======
+Exalt
+=====
 
 A plugin for validating XML and formatting XML and HTML. For information on
 what the plugin can do, see:
 
-https://github.com/eerohele/markup
+https://github.com/eerohele/exalt
 
 To get full benefit of the plugin, you'll probably want to use an XML catalog.
 
-If you already have one or more catalog files, you can tell Markup to use them.
-Add an entry like this into User/Markup.sublime-settings:
+If you already have one or more catalog files, you can tell Exalt to use them.
+Add an entry like this into User/Exalt.sublime-settings:
 
 {
   "xml_catalog_files": [
@@ -21,9 +21,9 @@ NOTE: Every time you modify the "xml_catalog_files" setting, you have to restart
 Sublime Text 3 for the changes to take effect.
 
 If you don't have an XML catalog, you can install one by using my
-markup-schemas GitHub repository at:
+"catalogs" GitHub repository at:
 
-https://github.com/eerohele/markup-schemas
+https://github.com/eerohele/catalogs
 
 Remember to set the "xml_catalog_files" setting to point to the catalog.xml
 in the repo and restart Sublime Text 3.

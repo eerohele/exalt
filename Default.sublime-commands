@@ -1,18 +1,18 @@
 [
   {
-    "caption": "Markup: Format Markup",
-    "command": "markup_format"
+    "caption": "Exalt: Format Markup",
+    "command": "exalt_format"
   },
   {
-    "caption": "Markup: Validate Markup",
-    "command": "markup_validate"
+    "caption": "Exalt: Validate Markup",
+    "command": "exalt_validate"
   },
   {
-    "caption": "Markup: Go To Error",
-    "command": "markup_go_to_error"
+    "caption": "Exalt: Go To Error",
+    "command": "exalt_go_to_error"
   },
   {
-    "caption": "Markup: Clear Parser Cache",
-    "command": "markup_clear_cache"
+    "caption": "Exalt: Clear Parser Cache",
+    "command": "exalt_clear_cache"
   }
 ]

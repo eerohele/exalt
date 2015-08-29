@@ -1,18 +1,18 @@
 [
   {
     "keys": ["super+ctrl+x"],
-    "command": "markup_format"
+    "command": "exalt_format"
   },
   {
     "keys": ["super+ctrl+v"],
-    "command": "markup_validate"
+    "command": "exalt_validate"
   },
   {
     "keys": ["super+ctrl+e"],
-    "command": "markup_go_to_error"
+    "command": "exalt_go_to_error"
   },
   {
     "keys": ["super+ctrl+z"],
-    "command": "markup_clear_cache"
+    "command": "exalt_clear_cache"
   }
 ]

@@ -2,21 +2,21 @@ import sublime, sys, os
 from unittest import TestCase
 from urllib.request import pathname2url
 
-markup = sys.modules["Markup.markup"]
+exalt = sys.modules["Exalt.exalt"]
 
-import Markup.constants as constants
-import Markup.messages as messages
-import Markup.impl.plugin as plugin
+import Exalt.constants as constants
+import Exalt.messages as messages
+import Exalt.impl.plugin as plugin
 
 # NOTE: These unit tests require that you've cloned the 
-# https://github.com/eerohele/markup-schemas repo (or an otherwise sufficient
-# set of XML catalogs) and have set up Markup to use those catalogs.
+# https://github.com/eerohele/catalogs repo (or an otherwise sufficient
+# set of XML catalogs) and have set up Exalt to use those catalogs.
 
 def read_file(path):
     return open(os.path.join("tests/fixtures", path), "r").read()
 
 def expand_schema_location(document):
-    schema = "file://%s" % pathname2url(os.path.join(markup.get_plugin_path(),
+    schema = "file://%s" % pathname2url(os.path.join(exalt.get_plugin_path(),
                                                    "tests/fixtures/schemas"))
 
     return sublime.expand_variables(document, { "schema": schema })
@@ -44,7 +44,7 @@ INVALID_XSLT = read_file("markup/invalid.xsl")
 NON_WELL_FORMED_XML = read_file("markup/non_well_formed.xml")
 
 
-class MarkupTestCase(TestCase):
+class ExaltTestCase(TestCase):
     def setUpClass():
         plugin.invoke_async = sublime.set_timeout
 
@@ -72,10 +72,10 @@ class MarkupTestCase(TestCase):
         return self.view.substr(sublime.Region(0, self.view.size()))
 
 
-class TestMarkupFormatCommand(MarkupTestCase):
+class TestExaltFormatCommand(ExaltTestCase):
     def format_and_compare(self, content, after):
         self.add_content_to_view(content)
-        self.view.run_command("markup_format")
+        self.view.run_command("exalt_format")
         self.assertEqual(self.get_view_content(), after)
 
     def test_format_xml(self):
@@ -89,14 +89,14 @@ class TestMarkupFormatCommand(MarkupTestCase):
         self.format_and_compare(content, after)
 
 
-class ValidateTestCase(MarkupTestCase):
+class ValidateTestCase(ExaltTestCase):
     def validate_content_and_assert_status(self, content, status):
         self.add_content_to_view(content)
-        self.view.run_command("markup_validate")
+        self.view.run_command("exalt_validate")
         self.assertEqual(self.view.get_status(constants.PLUGIN_NAME), status)
 
 
-class TestMarkupValidateCommandValid(ValidateTestCase):
+class TestExaltValidateCommandValid(ValidateTestCase):
     def test_validate_xml_valid_xslt(self):
         self.set_xslt_syntax()
         self.validate_content_and_assert_status(VALID_XSLT,
@@ -126,7 +126,7 @@ class TestMarkupValidateCommandValid(ValidateTestCase):
                                                 messages.VALID_MARKUP)
 
 
-class TestMarkupValidateCommandInvalid(ValidateTestCase):
+class TestExaltValidateCommandInvalid(ValidateTestCase):
     def test_validate_xml_invalid_xslt(self):
         self.set_xslt_syntax()
         self.validate_content_and_assert_status(INVALID_XSLT,
