@@ -8,6 +8,10 @@ If you have the misfortune of having to work with XML, this is the
 [lxml][lxml] for 64-bit Windows and failed miserably. Any help greatly
 appreciated.)
 
+![alt tag](https://dl.dropboxusercontent.com/u/83562/exalt.png)
+
+*The theme in the screenshot is [Material][material].*
+
 ## Features
 
 ### Validate files on the fly
@@ -152,6 +156,7 @@ Exalt tries to format non-well-formed XML files via the [libxml2][libxml2]
 [libxml2-#753997]: https://bugzilla.gnome.org/show_bug.cgi?id=753997
 [lxml]: http://lxml.de
 [catalogs]: https://github.com/eerohele/catalogs
+[material]: https://github.com/equinusocio/material-theme
 [maven]: https://maven.apache.org
 [ndw]: https://github.com/ndw/xslt-relax-ng
 [package-control]: https://packagecontrol.io
