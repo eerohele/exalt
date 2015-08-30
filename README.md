@@ -8,6 +8,10 @@ If you have the misfortune of having to work with XML, this is the
 [lxml][lxml] for 64-bit Windows and failed miserably. Any help greatly
 appreciated.)
 
+![alt tag](https://dl.dropboxusercontent.com/u/83562/exalt.png)
+
+*The theme in the screenshot is [Material][material].*
+
 ## Features
 
 ### Validate files on the fly
@@ -144,6 +148,11 @@ Exalt tries to format non-well-formed XML files via the [libxml2][libxml2]
 - DTD validation support is incomplete.
 - More unit tests are needed.
 
+## Acknowledgements
+- Norman Walsh for his [RelaxNG grammers for XSLT stylesheets][ndw].
+- @hoest for [SublimeXSLT][sublimexslt], where I borrowed `XSLT.tmLanguage`
+  from.
+
 [dita]: https://en.wikipedia.org/wiki/Darwin_Information_Typing_Architecture
 [dtd]: https://en.wikipedia.org/wiki/Document_type_definition
 [libxml2]: http://xmlsoft.org
@@ -152,6 +161,7 @@ Exalt tries to format non-well-formed XML files via the [libxml2][libxml2]
 [libxml2-#753997]: https://bugzilla.gnome.org/show_bug.cgi?id=753997
 [lxml]: http://lxml.de
 [catalogs]: https://github.com/eerohele/catalogs
+[material]: https://github.com/equinusocio/material-theme
 [maven]: https://maven.apache.org
 [ndw]: https://github.com/ndw/xslt-relax-ng
 [package-control]: https://packagecontrol.io
@@ -159,6 +169,7 @@ Exalt tries to format non-well-formed XML files via the [libxml2][libxml2]
 [rng]: http://relaxng.org
 [schematron]: http://schematron.com/
 [st3]: http://www.sublimetext.com/3
+[sublimexslt]: https://github.com/hoest/SublimeXSLT
 [w3c-dtd]: http://www.w3.org/blog/systeam/2008/02/08/w3c_s_excessive_dtd_traffic/
 [xml-catalog]: http://xmlsoft.org/catalog.html
 [xml-model]: http://www.w3.org/TR/xml-model
