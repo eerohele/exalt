@@ -148,6 +148,11 @@ Exalt tries to format non-well-formed XML files via the [libxml2][libxml2]
 - DTD validation support is incomplete.
 - More unit tests are needed.
 
+## Acknowledgements
+- Norman Walsh for his [RelaxNG grammers for XSLT stylesheets][ndw].
+- @hoest for [SublimeXSLT][sublimexslt], where I borrowed `XSLT.tmLanguage`
+  from.
+
 [dita]: https://en.wikipedia.org/wiki/Darwin_Information_Typing_Architecture
 [dtd]: https://en.wikipedia.org/wiki/Document_type_definition
 [libxml2]: http://xmlsoft.org
@@ -164,6 +169,7 @@ Exalt tries to format non-well-formed XML files via the [libxml2][libxml2]
 [rng]: http://relaxng.org
 [schematron]: http://schematron.com/
 [st3]: http://www.sublimetext.com/3
+[sublimexslt]: https://github.com/hoest/SublimeXSLT
 [w3c-dtd]: http://www.w3.org/blog/systeam/2008/02/08/w3c_s_excessive_dtd_traffic/
 [xml-catalog]: http://xmlsoft.org/catalog.html
 [xml-model]: http://www.w3.org/TR/xml-model
