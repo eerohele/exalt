@@ -8,7 +8,7 @@ If you have the misfortune of having to work with XML, this is the
 [lxml][lxml] for 64-bit Windows and failed miserably. Any help greatly
 appreciated.)
 
-![alt tag](https://dl.dropboxusercontent.com/u/83562/exalt.png)
+<img src="https://nw.kapsi.fi/exalt.png"/>
 
 *The theme in the screenshot is [Material][material].*
 
