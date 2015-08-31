@@ -51,7 +51,7 @@ def validate_against_schema(parser, error, view, document, schema_path):
     file = utils.resolve_file_path(schema_path, current_file)
 
     try:
-        validator = _get_validator(file, parser, file = file)
+        validator = _get_validator(file, parser, file=file)
         return validate(view, document, validator)
     except (error, etree.XSLTApplyError) as e:
         return View.show_error(view, e)
@@ -69,12 +69,13 @@ def get_validator_for_namespace(namespace):
     elif namespace == isoschematron.XML_SCHEMA_NS:
         return partial(fn, etree.XMLSchema, etree.XMLSchemaParseError)
     elif namespace == isoschematron.SCHEMATRON_NS:
-        return partial(fn, isoschematron.Schematron, etree.SchematronParseError)
+        return partial(fn, isoschematron.Schematron,
+                       etree.SchematronParseError)
     elif namespace == namespaces.PRE_ISO_SCHEMATRON:
         return partial(fn, etree.Schematron, etree.SchematronParseError)
 
 
-def validate_against_xml_schema(view, document, schema_file = None):
+def validate_against_xml_schema(view, document, schema_file=None):
     if schema_file is None:
         schema_file = _get_xml_schema_instance(document)
         if schema_file is None:
@@ -98,7 +99,7 @@ def validate_against_dtd(view, document):
         id = bytes(internal_subset.external_id, encodings.UTF8)
 
         try:
-            validator = _get_validator(id, etree.DTD, external_id = id)
+            validator = _get_validator(id, etree.DTD, external_id=id)
             return validate(view, document, validator)
         except etree.DTDParseError as e:
             return View.show_error(view, e)
@@ -157,7 +158,7 @@ def _get_validator(id, parser, **kwargs):
     This is probably a pretty stupid way of caching parsers. Suggestions
     appreciated."""
     validator = exalt.parser_cache.get(id) \
-                if id in exalt.parser_cache else parser(**kwargs)
+        if id in exalt.parser_cache else parser(**kwargs)
 
     exalt.parser_cache.setdefault(id, validator)
     return validator
@@ -166,7 +167,7 @@ def _get_validator(id, parser, **kwargs):
 def _get_xml_schema_instance(document):
     root = document.getroot()
     xsi = root.xpath("@xsi:schemaLocation | @xsi:noNamespaceSchemaLocation",
-                     namespaces = { "xsi": namespaces.XSI })
+                     namespaces={"xsi": namespaces.XSI})
 
     if len(xsi) == 0:
         return None
@@ -198,7 +199,7 @@ def _get_schematron_error_message(error):
     xml = etree.parse(io.StringIO(str(error)))
 
     return xml.xpath("//svrl:text[1]//node()",
-                     namespaces = {"svrl": isoschematron.SVRL_NS})[0]
+                     namespaces={"svrl": isoschematron.SVRL_NS})[0]
 
 
 def _validate_against_xml_models(view, document):
