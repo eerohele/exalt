@@ -59,9 +59,9 @@ class ExaltFormatCommand(ExaltTextCommand):
 
         return etree.tostring(
             document,
-            pretty_print = True,
-            xml_declaration = View.is_xml(self.view),
-            encoding = encoding
+            pretty_print=True,
+            xml_declaration=View.is_xml(self.view),
+            encoding=encoding
         ).decode(encoding)
 
     def run(self, edit):
@@ -69,13 +69,15 @@ class ExaltFormatCommand(ExaltTextCommand):
 
         if View.is_xml(view) or View.is_html(view):
             try:
-                # The "remove_blank_text" flag needs to be True for pretty-printing to
-                # work. See http://stackoverflow.com/a/9612463/825783.
+                # The "remove_blank_text" flag needs to be True for
+                # pretty-printing to work.
+                #
+                # See http://stackoverflow.com/a/9612463/825783.
                 #
                 # TODO: Make "recover" a Sublime setting.
-                parser = self.get_parser(encoding = encodings.UTF8,
-                                         remove_blank_text = True,
-                                         recover = True)
+                parser = self.get_parser(encoding=encodings.UTF8,
+                                         remove_blank_text=True,
+                                         recover=True)
 
                 content = self.parse_view_content(parser)
                 View.replace_region_content(view, edit, self.format(content))
@@ -92,14 +94,14 @@ class ExaltValidateCommand(ExaltTextCommand):
             return
 
         try:
-            parser = self.get_parser(encoding = encodings.UTF8)
+            parser = self.get_parser(encoding=encodings.UTF8)
             document = self.parse_view_content(parser)
 
             if View.is_xslt(view):
                 version = document.getroot().get(constants.VERSION)
                 relax_ng = validator.get_xslt_relaxng_path(version)
 
-                v = validator.get_validator_for_namespace( \
+                v = validator.get_validator_for_namespace(
                       isoschematron.RELAXNG_NS)(view, document, relax_ng)
 
                 invoke_async(lambda: v, 0)
@@ -108,7 +110,7 @@ class ExaltValidateCommand(ExaltTextCommand):
         except etree.XMLSyntaxError as e:
             message = str(e)
 
-            if not constants.LXML_NO_DTD_FOUND in message:
+            if constants.LXML_NO_DTD_FOUND not in message:
                 error = parser.error_log.filter_from_errors()[0]
                 return View.show_error(view, message, error)
 
