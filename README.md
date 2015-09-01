@@ -149,7 +149,7 @@ Exalt tries to format non-well-formed XML files via the [libxml2][libxml2]
 - More unit tests are needed.
 
 ## Acknowledgements
-- Norman Walsh for his [RelaxNG grammers for XSLT stylesheets][ndw].
+- Norman Walsh for his [RelaxNG grammars for XSLT stylesheets][ndw].
 - @hoest for [SublimeXSLT][sublimexslt], where I borrowed `XSLT.tmLanguage`
   from.
 
