@@ -65,9 +65,10 @@ of course):
             schematypens="http://relaxng.org/ns/structure/1.0"?>
 ```
 
-Exalt will then validate against the schema in the `@href` attribute. It
-uses the XML catalog you've set up to resolve the `@href` and the
-`@schematypens` attribute to determine the the type of the schema.
+Exalt will then validate against the schema in the `href` pseudo-attribute. It
+uses the XML catalog you've set up to resolve the path in the `href`
+pseudo-attribute and the `schematypens` pseudo-attribute to determine the the
+type of the schema.
 
 You can naturally use absolute or relative paths, too:
 
