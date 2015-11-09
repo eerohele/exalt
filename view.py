@@ -7,6 +7,7 @@ import Exalt.constants as constants
 import Exalt.settings as settings
 import Exalt.exalt as exalt
 
+
 def set_status(view, message):
     view.set_status(constants.PLUGIN_NAME, message)
 
@@ -73,7 +74,7 @@ def get_error_point(view, error):
     return view.text_point(error.line - 1, error.column - 1)
 
 
-def show_error(view, message, error = None):
+def show_error(view, message, error=None):
     """Show the given error message in the Sublime Text status bar and
     highlight the error region if given."""
     set_status(view, str(message))
@@ -85,10 +86,10 @@ def show_error(view, message, error = None):
         exalt.error_point = point
 
         view.add_regions(constants.PLUGIN_NAME,
-                              [region],
-                              "variable.parameter",
-                              "dot",
-                              constants.SUBLIME_REGION_FLAGS)
+                         [region],
+                         "variable.parameter",
+                         "dot",
+                         constants.SUBLIME_REGION_FLAGS)
 
         scroll = bool(exalt.get_settings()
                       .get(settings.AUTO_SCROLL_TO_ERROR, False))

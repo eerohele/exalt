@@ -10,7 +10,7 @@ import Exalt.messages as messages
 import Exalt.encodings as encodings
 import Exalt.constants as constants
 import Exalt.exalt as exalt
-import Exalt.view as View
+import Exalt.view as vu
 
 # XML_CATALOG_FILES needs to be set *before* lxml is loaded:
 # http://permalink.gmane.org/gmane.comp.python.lxml.devel/7501
@@ -31,9 +31,9 @@ class ExaltTextCommand(TextCommand):
     def get_parser(self, **kwargs):
         view = self.view
 
-        if View.is_xml(view):
+        if vu.is_xml(view):
             return etree.XMLParser(**kwargs)
-        elif View.is_html(view):
+        elif vu.is_html(view):
             return etree.HTMLParser(**kwargs)
         else:
             raise Exception(messages.NO_PARSER_FOR_SYNTAX %
@@ -42,8 +42,8 @@ class ExaltTextCommand(TextCommand):
     def parse_view_content(self, parser):
         view = self.view
 
-        if View.is_xml(view) or View.is_html(view):
-            return etree.parse(View.get_content_as_bytes(view), parser)
+        if vu.is_xml(view) or vu.is_html(view):
+            return etree.parse(vu.get_content_as_bytes(view), parser)
         else:
             raise Exception(messages.CANNOT_PARSE_EXCEPTION)
 
@@ -60,14 +60,14 @@ class ExaltFormatCommand(ExaltTextCommand):
         return etree.tostring(
             document,
             pretty_print=True,
-            xml_declaration=View.is_xml(self.view),
+            xml_declaration=vu.is_xml(self.view),
             encoding=encoding
         ).decode(encoding)
 
     def run(self, edit):
         view = self.view
 
-        if View.is_xml(view) or View.is_html(view):
+        if vu.is_xml(view) or vu.is_html(view):
             try:
                 # The "remove_blank_text" flag needs to be True for
                 # pretty-printing to work.
@@ -80,24 +80,24 @@ class ExaltFormatCommand(ExaltTextCommand):
                                          recover=True)
 
                 content = self.parse_view_content(parser)
-                View.replace_region_content(view, edit, self.format(content))
+                vu.replace_region_content(view, edit, self.format(content))
             except etree.XMLSyntaxError:
-                View.set_status(view, messages.NOT_WELL_FORMED_XML)
-                View.reset_status(view)
+                vu.set_status(view, messages.NOT_WELL_FORMED_XML)
+                vu.reset_status(view)
 
 
 class ExaltValidateCommand(ExaltTextCommand):
     def run(self, edit):
         view = self.view
 
-        if not View.is_xml(view) or len(View.get_content(view).strip()) == 0:
+        if not vu.is_xml(view) or len(vu.get_content(view).strip()) == 0:
             return
 
         try:
             parser = self.get_parser(encoding=encodings.UTF8)
             document = self.parse_view_content(parser)
 
-            if View.is_xslt(view):
+            if vu.is_xslt(view):
                 version = document.getroot().get(constants.VERSION)
                 relax_ng = validator.get_xslt_relaxng_path(version)
 
@@ -112,7 +112,7 @@ class ExaltValidateCommand(ExaltTextCommand):
 
             if constants.LXML_NO_DTD_FOUND not in message:
                 error = parser.error_log.filter_from_errors()[0]
-                return View.show_error(view, message, error)
+                return vu.show_error(view, message, error)
 
 
 class ExaltGoToErrorCommand(TextCommand):

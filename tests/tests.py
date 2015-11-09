@@ -1,4 +1,7 @@
-import sublime, sys, os
+import sublime
+import sys
+import os
+
 from unittest import TestCase
 from urllib.request import pathname2url
 
@@ -8,18 +11,20 @@ import Exalt.constants as constants
 import Exalt.messages as messages
 import Exalt.impl.plugin as plugin
 
-# NOTE: These unit tests require that you've cloned the 
+# NOTE: These unit tests require that you've cloned the
 # https://github.com/eerohele/catalogs repo (or an otherwise sufficient
 # set of XML catalogs) and have set up Exalt to use those catalogs.
+
 
 def read_file(path):
     return open(os.path.join("tests/fixtures", path), "r").read()
 
+
 def expand_schema_location(document):
     schema = "file://%s" % pathname2url(os.path.join(exalt.get_plugin_path(),
-                                                   "tests/fixtures/schemas"))
+                                        "tests/fixtures/schemas"))
 
-    return sublime.expand_variables(document, { "schema": schema })
+    return sublime.expand_variables(document, {"schema": schema})
 
 # If we have these in a separate module, we need to restart ST3 every time
 # after adding a new fixture, so we'll keep them here.
@@ -66,7 +71,7 @@ class ExaltTestCase(TestCase):
         self.view.set_syntax_file(syntax_file)
 
     def add_content_to_view(self, content):
-        self.view.run_command("insert", { "characters": content })
+        self.view.run_command("insert", {"characters": content})
 
     def get_view_content(self):
         return self.view.substr(sublime.Region(0, self.view.size()))
@@ -105,6 +110,7 @@ class TestExaltValidateCommandValid(ValidateTestCase):
     def test_validate_xml_valid_internal_subset(self):
         self.validate_content_and_assert_status(VALID_INTERNAL_SUBSET,
                                                 messages.VALID_MARKUP)
+
     def test_validate_xml_valid_rng(self):
         self.validate_content_and_assert_status(VALID_RNG,
                                                 messages.VALID_MARKUP)
