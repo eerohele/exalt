@@ -135,7 +135,6 @@ Exalt tries to format non-well-formed XML files via the [libxml2][libxml2]
 
 ## Other caveats
 
-- Sublime Text 3 only, OS X and Linux only (for now).
 - There's probably many encoding things I didn't take into account. UTF-8
   content should work OK.
 - I don't really know Python.
