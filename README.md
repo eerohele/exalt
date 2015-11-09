@@ -4,10 +4,6 @@ Exalt
 If you have the misfortune of having to work with XML, this is the
 [Sublime Text 3][st3] plugin for you.
 
-(Unless you're using Windows. I nearly went insane trying to compile
-[lxml][lxml] for 64-bit Windows and failed miserably. Any help greatly
-appreciated.)
-
 <img src="https://nw.kapsi.fi/exalt.png"/>
 
 *The theme in the screenshot is [Material][material].*
@@ -65,9 +61,10 @@ of course):
             schematypens="http://relaxng.org/ns/structure/1.0"?>
 ```
 
-Exalt will then validate against the schema in the `@href` attribute. It
-uses the XML catalog you've set up to resolve the `@href` and the
-`@schematypens` attribute to determine the the type of the schema.
+Exalt will then validate against the schema in the `href` pseudo-attribute. It
+uses the XML catalog you've set up to resolve the path in the `href`
+pseudo-attribute and the `schematypens` pseudo-attribute to determine the the
+type of the schema.
 
 You can naturally use absolute or relative paths, too:
 

@@ -1,7 +1,7 @@
 import os
 import io
 
-import Exalt.view as View
+import Exalt.view as vu
 import Exalt.messages as messages
 import Exalt.encodings as encodings
 import Exalt.constants as constants
@@ -54,7 +54,7 @@ def validate_against_schema(parser, error, view, document, schema_path):
         validator = _get_validator(file, parser, file=file)
         return validate(view, document, validator)
     except (error, etree.XSLTApplyError) as e:
-        return View.show_error(view, e)
+        return vu.show_error(view, e)
 
 
 def get_validator_for_namespace(namespace):
@@ -102,13 +102,13 @@ def validate_against_dtd(view, document):
             validator = _get_validator(id, etree.DTD, external_id=id)
             return validate(view, document, validator)
         except etree.DTDParseError as e:
-            return View.show_error(view, e)
+            return vu.show_error(view, e)
     else:
         # <!DOCTYPE people_list [ <!ELEMENT people_list (person)*> ]>
         try:
             return validate(view, document, internal_subset)
         except etree.DTDParseError as e:
-            return View.show_error(view, e)
+            return vu.show_error(view, e)
 
 
 def try_validate(view, document):
@@ -127,9 +127,9 @@ def validate(view, document, validator):
             message = _get_schematron_error_message(e)
         else:
             message = e
-        return View.show_error(view, message, validator.error_log[0])
+        return vu.show_error(view, message, validator.error_log[0])
     except OSError:
-        View.set_status(view, messages.SCHEMA_RESOLVE_ERROR % id)
+        vu.set_status(view, messages.SCHEMA_RESOLVE_ERROR % id)
         return False
 
 
@@ -138,8 +138,8 @@ def declare_valid(view):
 
     Remove any highlight regions and indicate validity in status bar."""
     view.erase_regions(constants.PLUGIN_NAME)
-    View.set_status(view, messages.VALID_MARKUP)
-    View.reset_status(view)
+    vu.set_status(view, messages.VALID_MARKUP)
+    vu.reset_status(view)
     return True
 
 
