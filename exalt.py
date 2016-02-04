@@ -80,6 +80,7 @@ def plugin_loaded():
     # only then load the files that import and use lxml.
     sublime_plugin.reload_plugin("%s.impl.plugin" % constants.PLUGIN_NAME)
     sublime_plugin.reload_plugin("%s.impl.validator" % constants.PLUGIN_NAME)
+    sublime_plugin.reload_plugin("%s.impl.formatter" % constants.PLUGIN_NAME)
 
 
 def plugin_unloaded():

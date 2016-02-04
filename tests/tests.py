@@ -60,6 +60,7 @@ class ExaltTestCase(TestCase):
     def tearDown(self):
         if self.view:
             self.view.set_scratch(True)
+            self.view.sel().clear()
             self.view.window().focus_view(self.view)
             self.view.window().run_command("close_file")
 
@@ -83,7 +84,7 @@ class TestExaltFormatCommand(ExaltTestCase):
         self.view.run_command("exalt_format")
         self.assertEqual(self.get_view_content(), after)
 
-    def test_format_xml(self):
+    def test_format_document(self):
         content = """<pokemon><name>Pikachu</name><level>1</level></pokemon>"""
         after = """<?xml version='1.0' encoding='UTF-8'?>
 <pokemon>
@@ -91,6 +92,58 @@ class TestExaltFormatCommand(ExaltTestCase):
   <level>1</level>
 </pokemon>
 """
+        self.format_and_compare(content, after)
+
+    def test_format_selection(self):
+        content = """<?xml version='1.0' encoding='UTF-8'?>
+<pokemon>
+  <name>Pikachu</name>
+  <level>1</level>
+  <abilities><ability name="Static"/>
+<ability name="Lightning Rod"/>   </abilities>
+</pokemon>
+"""
+        after = """<?xml version='1.0' encoding='UTF-8'?>
+<pokemon>
+  <name>Pikachu</name>
+  <level>1</level>
+  <abilities>
+    <ability name="Static"/>
+    <ability name="Lightning Rod"/>
+  </abilities>
+</pokemon>
+"""
+        self.view.sel().add(sublime.Region(93, 175))
+        self.format_and_compare(content, after)
+
+    def test_format_multiple_selections(self):
+        content = """<pokemon>
+  <name>Pikachu</name>
+  <level>1</level>
+<abilities><ability name="Static"/>
+<ability name="Lightning Rod"/>   </abilities>
+<details><genderRatio
+male="50%" female="50%"/><catchRate>190</catchRate>
+
+</details>
+</pokemon>
+"""
+        after = """<?xml version='1.0' encoding='UTF-8'?>
+<pokemon>
+  <name>Pikachu</name>
+  <level>1</level>
+  <abilities>
+    <ability name="Static"/>
+    <ability name="Lightning Rod"/>
+  </abilities>
+  <details>
+    <genderRatio male="50%" female="50%"/>
+    <catchRate>190</catchRate>
+  </details>
+</pokemon>
+"""
+        self.view.sel().add(sublime.Region(52, 134))
+        self.view.sel().add(sublime.Region(135, 220))
         self.format_and_compare(content, after)
 
 

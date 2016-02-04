@@ -1,10 +1,14 @@
 [
   {
-    "caption": "Exalt: Format Markup",
-    "command": "exalt_format"
+    "caption": "Exalt: Format Document",
+    "command": "exalt_format_document"
   },
   {
-    "caption": "Exalt: Validate Markup",
+    "caption": "Exalt: Format Selections",
+    "command": "exalt_format_selections"
+  },
+  {
+    "caption": "Exalt: Validate Document",
     "command": "exalt_validate"
   },
   {
