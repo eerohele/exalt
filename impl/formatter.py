@@ -7,18 +7,27 @@ from lxml import etree
 import Exalt.impl.parsetools as parsetools
 
 
-def format_xml(xml, xml_declaration=False):
-    encoding = xml.docinfo.encoding
+def format_markup(markup, view, **kwargs):
+    encoding = markup.docinfo.encoding
+
+    # lxml only indents HTML if method == "xml", but then it will self-close
+    # any <script> element, which is not OK.
+    #
+    # This hack adds a single space into any empty <script> elements, which
+    # forces lxml to add the closing tag.
+    if (vu.is_html(view)):
+        for script in markup.xpath("//script[@src][not(normalize-space(.))]"):
+            script.text = " "
 
     return etree.tostring(
-        xml,
+        markup,
         pretty_print=True,
-        xml_declaration=xml_declaration,
-        encoding=encoding
+        encoding=encoding,
+        **kwargs
     ).decode(encoding)
 
 
-def format_region(view, region, xml_declaration=False):
+def format_region(view, region, **kwargs):
     if vu.is_eligible(view):
         try:
             parser = parsetools.get_parser(view,
@@ -26,8 +35,8 @@ def format_region(view, region, xml_declaration=False):
                                            remove_blank_text=True,
                                            recover=True)
 
-            xml = parsetools.parse_string(view, parser, view.substr(region))
-            return format_xml(xml, xml_declaration)
+            markup = parsetools.parse_string(view, parser, view.substr(region))
+            return format_markup(markup, view, **kwargs)
         except etree.XMLSyntaxError:
             vu.set_status(view, messages.NOT_WELL_FORMED_XML)
             vu.reset_status(view)

@@ -67,6 +67,9 @@ class ExaltTestCase(TestCase):
     def tearDownClass():
         plugin.invoke_async = sublime.set_timeout_async
 
+    def set_html_syntax(self):
+        self.view.set_syntax_file("Packages/HTML/HTML.tmLanguage")
+
     def set_xslt_syntax(self):
         syntax_file = "Packages/%s/XSLT.tmLanguage" % constants.PLUGIN_NAME
         self.view.set_syntax_file(syntax_file)
@@ -84,13 +87,34 @@ class TestExaltFormatCommand(ExaltTestCase):
         self.view.run_command("exalt_format")
         self.assertEqual(self.get_view_content(), after)
 
-    def test_format_document(self):
+    def test_format_xml_document(self):
         content = """<pokemon><name>Pikachu</name><level>1</level></pokemon>"""
         after = """<?xml version='1.0' encoding='UTF-8'?>
 <pokemon>
   <name>Pikachu</name>
   <level>1</level>
 </pokemon>
+"""
+        self.format_and_compare(content, after)
+
+    def test_format_html_document(self):
+        self.set_html_syntax()
+        content = """<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<title>title</title><link rel="stylesheet" href="style.css">
+<script src="script.js"></script></head><body><p>Hello, world!</p></body>
+</html>"""
+        after = """<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>title</title>
+    <link rel="stylesheet" href="style.css"/>
+    <script src="script.js"> </script>
+  </head>
+  <body>
+    <p>Hello, world!</p>
+  </body>
+</html>
 """
         self.format_and_compare(content, after)
 

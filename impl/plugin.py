@@ -49,7 +49,14 @@ class ExaltFormatDocumentCommand(ExaltFormatCommand):
     def run(self, edit):
         view = self.view
         region = sublime.Region(0, view.size())
-        view.replace(edit, region, formatter.format_region(view, region, True))
+
+        formatted = formatter.format_region(
+            view,
+            region,
+            xml_declaration=vu.is_xml(view)
+        )
+
+        view.replace(edit, region, formatted)
 
 
 class ExaltFormatSelectionsCommand(ExaltFormatCommand):
