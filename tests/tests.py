@@ -49,6 +49,18 @@ INVALID_XSLT = read_file("markup/invalid.xsl")
 NON_WELL_FORMED_XML = read_file("markup/non_well_formed.xml")
 
 
+class TestExaltPlugin(TestCase):
+    def test_file_to_uri(self):
+        self.assertEqual(
+            exalt.file_to_uri("/usr/local/bin/diff"),
+            "file:///usr/local/bin/diff"
+        )
+
+        assert(
+            "~" not in exalt.file_to_uri("~/.local")
+        )
+
+
 class ExaltTestCase(TestCase):
     def setUpClass():
         plugin.invoke_async = sublime.set_timeout
@@ -60,11 +72,15 @@ class ExaltTestCase(TestCase):
     def tearDown(self):
         if self.view:
             self.view.set_scratch(True)
+            self.view.sel().clear()
             self.view.window().focus_view(self.view)
             self.view.window().run_command("close_file")
 
     def tearDownClass():
         plugin.invoke_async = sublime.set_timeout_async
+
+    def set_html_syntax(self):
+        self.view.set_syntax_file("Packages/HTML/HTML.tmLanguage")
 
     def set_xslt_syntax(self):
         syntax_file = "Packages/%s/XSLT.tmLanguage" % constants.PLUGIN_NAME
@@ -83,7 +99,7 @@ class TestExaltFormatCommand(ExaltTestCase):
         self.view.run_command("exalt_format")
         self.assertEqual(self.get_view_content(), after)
 
-    def test_format_xml(self):
+    def test_format_xml_document(self):
         content = """<pokemon><name>Pikachu</name><level>1</level></pokemon>"""
         after = """<?xml version='1.0' encoding='UTF-8'?>
 <pokemon>
@@ -91,6 +107,79 @@ class TestExaltFormatCommand(ExaltTestCase):
   <level>1</level>
 </pokemon>
 """
+        self.format_and_compare(content, after)
+
+    def test_format_html_document(self):
+        self.set_html_syntax()
+        content = """<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<title>title</title><link rel="stylesheet" href="style.css">
+<script src="script.js"></script></head><body><p>Hello, world!</p></body>
+</html>"""
+        after = """<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>title</title>
+    <link rel="stylesheet" href="style.css"/>
+    <script src="script.js"> </script>
+  </head>
+  <body>
+    <p>Hello, world!</p>
+  </body>
+</html>
+"""
+        self.format_and_compare(content, after)
+
+    def test_format_selection(self):
+        content = """<?xml version='1.0' encoding='UTF-8'?>
+<pokemon>
+  <name>Pikachu</name>
+  <level>1</level>
+  <abilities><ability name="Static"/>
+<ability name="Lightning Rod"/>   </abilities>
+</pokemon>
+"""
+        after = """<?xml version='1.0' encoding='UTF-8'?>
+<pokemon>
+  <name>Pikachu</name>
+  <level>1</level>
+  <abilities>
+    <ability name="Static"/>
+    <ability name="Lightning Rod"/>
+  </abilities>
+</pokemon>
+"""
+        self.view.sel().add(sublime.Region(93, 175))
+        self.format_and_compare(content, after)
+
+    def test_format_multiple_selections(self):
+        content = """<pokemon>
+  <name>Pikachu</name>
+  <level>1</level>
+<abilities><ability name="Static"/>
+<ability name="Lightning Rod"/>   </abilities>
+<details><genderRatio
+male="50%" female="50%"/><catchRate>190</catchRate>
+
+</details>
+</pokemon>
+"""
+        after = """<?xml version='1.0' encoding='UTF-8'?>
+<pokemon>
+  <name>Pikachu</name>
+  <level>1</level>
+  <abilities>
+    <ability name="Static"/>
+    <ability name="Lightning Rod"/>
+  </abilities>
+  <details>
+    <genderRatio male="50%" female="50%"/>
+    <catchRate>190</catchRate>
+  </details>
+</pokemon>
+"""
+        self.view.sel().add(sublime.Region(52, 134))
+        self.view.sel().add(sublime.Region(135, 220))
         self.format_and_compare(content, after)
 
 

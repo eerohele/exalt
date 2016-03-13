@@ -1,8 +1,7 @@
-import io
 import os
 import sublime
 
-import Exalt.encodings as encodings
+import Exalt.messages as messages
 import Exalt.constants as constants
 import Exalt.settings as settings
 import Exalt.exalt as exalt
@@ -14,27 +13,6 @@ def set_status(view, message):
 
 def get_content(view):
     return view.substr(sublime.Region(0, view.size()))
-
-
-def get_content_as_bytes(view):
-    # I have no idea whether this is the optimal way of parsing the
-    # content of the view. If you try to parse it as a string, you'll
-    # get the error described here:
-    #
-    # http://lxml.de/parsing.html#python-unicode-strings
-    #
-    # There's an lxml bug report on the subject that seems to suggest that
-    # using BytesIO is the way to go:
-    #
-    # https://bugs.launchpad.net/lxml/+bug/613302
-    #
-    # But I feel that the documentation and the bug report conflict each
-    # other to some extent. Improvement suggestions appreciated.
-    return io.BytesIO(bytes(get_content(view), encodings.UTF8))
-
-
-def replace_region_content(view, edit, data):
-    view.replace(edit, sublime.Region(0, view.size()), data)
 
 
 def reset_status(view):
@@ -54,6 +32,10 @@ def is_xml(view):
 
 def is_html(view):
     return get_syntax(view) == "HTML"
+
+
+def is_eligible(view):
+    return is_xml(view) or is_html(view)
 
 
 def is_xslt(view):
