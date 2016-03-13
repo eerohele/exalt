@@ -1,0 +1,11 @@
+Exalt
+=====
+
+Version 0.2.0 adds support for formatting one or more selections.
+
+NOTE: The selection should be a well-formed fragment of XML! The plugin will
+attempt to format non-well-formed XML fragments, but the result is likely to
+be wrong.
+
+If you have a fragment of XML selected and run the "Format Markup" command, that
+selection will be formatted. Otherwise, the entire document will be formatted.
