@@ -48,6 +48,10 @@ def get_setting(key, default=None):
     return get_settings().get(key, default)
 
 
+def file_to_uri(file):
+    return urljoin("file:", pathname2url(expanduser(file)))
+
+
 def get_catalog_files():
     # lxml uses the $XML_CATALOG_FILES environment variable to look for
     # XML catalog files, and since it's a bit tricky to set the variable
@@ -57,8 +61,7 @@ def get_catalog_files():
 
     # Convert paths to URLs so that lxml can parse catalog paths with
     # spaces in them.
-    catalog_urls = map(lambda s: urljoin("file:", pathname2url(expanduser(s))),
-                       catalog_files)
+    catalog_urls = map(lambda file: file_to_uri(file), catalog_files)
 
     return " ".join(catalog_urls)
 

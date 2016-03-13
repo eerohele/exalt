@@ -49,6 +49,18 @@ INVALID_XSLT = read_file("markup/invalid.xsl")
 NON_WELL_FORMED_XML = read_file("markup/non_well_formed.xml")
 
 
+class TestExaltPlugin(TestCase):
+    def test_file_to_uri(self):
+        self.assertEqual(
+            exalt.file_to_uri("/usr/local/bin/diff"),
+            "file:///usr/local/bin/diff"
+        )
+
+        assert(
+            "~" not in exalt.file_to_uri("~/.local")
+        )
+
+
 class ExaltTestCase(TestCase):
     def setUpClass():
         plugin.invoke_async = sublime.set_timeout
