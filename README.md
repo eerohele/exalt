@@ -128,9 +128,6 @@ Exalt tries to format non-well-formed XML files via the [libxml2][libxml2]
 - Due to libxml2 issues [#573483][libxml2-#573483], [#753970][libxml2-#753970],
   and [753997][libxml2-#753997], **none** of the available validation methods
   work for DITA 1.3 files. That's a bit of a bummer.
-- Formatting HTML occasionally gives weird results (the DOCTYPE tends to
-  disappear and reappear, for example).
-- Formatting the same HTML file multiple times also gives weird results.
 - ISO Schematron validation doesn't always report the error position correctly.
 
 ## Other caveats
