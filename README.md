@@ -81,7 +81,13 @@ validation error if it's not already in view.
 
 ### Format XML & HTML files
 
-Press `⌘ + Ctrl + X` to reformat (pretty-print) an XML or HTML file.
+Press `⌘ + Ctrl + X` to reformat (pretty-print) an XML or HTML file. If
+you have nothing selected, Exalt will format the entire document. If you
+have one or more selections, Exalt will format those.
+
+*NOTE*: When formatting a selection, Exalt assumes the selection is a
+well-formed XML fragment. It will try to recover, but if your selection
+isn't well-formed, chances are the result is not what you want.
 
 Exalt tries to format non-well-formed XML files via the [libxml2][libxml2]
 `recover` flag.
