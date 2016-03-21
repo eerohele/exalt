@@ -69,11 +69,17 @@ type of the schema.
 You can naturally use absolute or relative paths, too:
 
 ```xml
-<?xml-model href="file:///etc/xml/schemas/docbook/docbook-5.0/docbook.rng"
+<!-- Relax NG -->
+<?xml-model href="file:///etc/xml/common/schemas/docbook/docbook-5.0/docbook.rng"
             schematypens="http://relaxng.org/ns/structure/1.0"?>
 
+<!-- XML Schema -->
 <?xml-model href="../docbook-5.0/xsd/docbook.xsd"
             schematypens="http://www.w3.org/2001/XMLSchema"?>
+
+<!-- ISO Schematron -->
+<?xml-model href="file:///etc/xml/common/schemas/dita/schematron/dita-1.2-for-xslt1.sch"
+            schematypens="http://purl.oclc.org/dsdl/schematron"?>
 ```
 
 If your file doesn't validate, you can press `⌘ + Ctrl + E` to jump to the
