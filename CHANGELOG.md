@@ -1,5 +1,8 @@
 # Change Log
 
+## [0.2.1]
+- Fix XSLT validation error on Windows
+
 ## [0.2.0]
 - Add Windows shortcuts and menus
 - Add support for formatting selections
