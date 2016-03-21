@@ -21,8 +21,8 @@ def read_file(path):
 
 
 def expand_schema_location(document):
-    schema = "file://%s" % pathname2url(os.path.join(exalt.get_plugin_path(),
-                                        "tests/fixtures/schemas"))
+    schema = exalt.file_to_uri(os.path.join(exalt.get_plugin_path(),
+                              "tests/fixtures/schemas"))
 
     return sublime.expand_variables(document, {"schema": schema})
 
