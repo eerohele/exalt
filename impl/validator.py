@@ -34,7 +34,7 @@ def get_xslt_relaxng_path(version):
         v = "10"
 
     path = os.path.join(exalt.get_plugin_path(), "rng", "xslt%s.rng" % v)
-    return pathname2url(path)
+    return exalt.file_to_uri(path)
 
 
 def validate_against_schema(parser, error, view, document, schema_path):
