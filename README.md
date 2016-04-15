@@ -69,11 +69,17 @@ type of the schema.
 You can naturally use absolute or relative paths, too:
 
 ```xml
-<?xml-model href="file:///etc/xml/schemas/docbook/docbook-5.0/docbook.rng"
+<!-- Relax NG -->
+<?xml-model href="file:///etc/xml/common/schemas/docbook/docbook-5.0/docbook.rng"
             schematypens="http://relaxng.org/ns/structure/1.0"?>
 
+<!-- XML Schema -->
 <?xml-model href="../docbook-5.0/xsd/docbook.xsd"
             schematypens="http://www.w3.org/2001/XMLSchema"?>
+
+<!-- ISO Schematron -->
+<?xml-model href="file:///etc/xml/common/schemas/dita/schematron/dita-1.2-for-xslt1.sch"
+            schematypens="http://purl.oclc.org/dsdl/schematron"?>
 ```
 
 If your file doesn't validate, you can press `⌘ + Ctrl + E` to jump to the
@@ -81,7 +87,13 @@ validation error if it's not already in view.
 
 ### Format XML & HTML files
 
-Press `⌘ + Ctrl + X` to reformat (pretty-print) an XML or HTML file.
+Press `⌘ + Ctrl + X` to reformat (pretty-print) an XML or HTML file. If
+you have nothing selected, Exalt will format the entire document. If you
+have one or more selections, Exalt will format those.
+
+*NOTE*: When formatting a selection, Exalt assumes the selection is a
+well-formed XML fragment. It will try to recover, but if your selection
+isn't well-formed, chances are the result is not what you want.
 
 Exalt tries to format non-well-formed XML files via the [libxml2][libxml2]
 `recover` flag.
@@ -128,9 +140,6 @@ Exalt tries to format non-well-formed XML files via the [libxml2][libxml2]
 - Due to libxml2 issues [#573483][libxml2-#573483], [#753970][libxml2-#753970],
   and [753997][libxml2-#753997], **none** of the available validation methods
   work for DITA 1.3 files. That's a bit of a bummer.
-- Formatting HTML occasionally gives weird results (the DOCTYPE tends to
-  disappear and reappear, for example).
-- Formatting the same HTML file multiple times also gives weird results.
 - ISO Schematron validation doesn't always report the error position correctly.
 
 ## Other caveats
