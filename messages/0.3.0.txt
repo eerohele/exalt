@@ -1,0 +1,7 @@
+Exalt
+=====
+
+Version 0.3.0 adds support for canonicalizing XML.
+
+To canonicalize an XML file, choose "Exalt: Canonicalize Document" from the
+command palette.

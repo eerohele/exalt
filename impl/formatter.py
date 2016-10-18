@@ -6,6 +6,8 @@ from lxml import etree
 
 import Exalt.impl.parsetools as parsetools
 
+from io import BytesIO
+
 
 def format_markup(markup, view, **kwargs):
     encoding = markup.docinfo.encoding
@@ -40,3 +42,14 @@ def format_region(view, region, **kwargs):
         except etree.XMLSyntaxError:
             vu.set_status(view, messages.NOT_WELL_FORMED_XML)
             vu.reset_status(view)
+
+
+def canonicalize_document(view, region):
+    parser = parsetools.get_parser(view,
+                                   encoding=encodings.UTF8,
+                                   remove_blank_text=True)
+
+    xml = parsetools.parse_string(view, parser, view.substr(region))
+    output = BytesIO()
+    xml.write_c14n(output)
+    return output.getvalue().decode(xml.docinfo.encoding)
