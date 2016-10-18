@@ -17,7 +17,9 @@ import Exalt.impl.plugin as plugin
 
 
 def read_file(path):
-    return open(os.path.join("tests/fixtures", path), "r").read()
+    return open(os.path.join(exalt.get_plugin_path(),
+                             "tests/fixtures",
+                             path), "r").read()
 
 
 def expand_schema_location(document):
@@ -94,10 +96,16 @@ class ExaltTestCase(TestCase):
 
 
 class TestExaltFormatCommand(ExaltTestCase):
-    def format_and_compare(self, content, after):
+    def run_command_and_compare(self, command, content, after):
         self.add_content_to_view(content)
-        self.view.run_command("exalt_format")
+        self.view.run_command(command)
         self.assertEqual(self.get_view_content(), after)
+
+    def test_canonicalize_xml_document(self):
+        content = """<a d="e" b="c"/>"""
+        after = """<a b="c" d="e"></a>"""
+
+        self.run_command_and_compare("exalt_canonicalize_document", content, after)
 
     def test_format_xml_document(self):
         content = """<pokemon><name>Pikachu</name><level>1</level></pokemon>"""
@@ -107,7 +115,7 @@ class TestExaltFormatCommand(ExaltTestCase):
   <level>1</level>
 </pokemon>
 """
-        self.format_and_compare(content, after)
+        self.run_command_and_compare("exalt_format", content, after)
 
     def test_format_html_document(self):
         self.set_html_syntax()
@@ -128,7 +136,7 @@ class TestExaltFormatCommand(ExaltTestCase):
   </body>
 </html>
 """
-        self.format_and_compare(content, after)
+        self.run_command_and_compare("exalt_format", content, after)
 
     def test_format_selection(self):
         content = """<?xml version='1.0' encoding='UTF-8'?>
@@ -150,7 +158,7 @@ class TestExaltFormatCommand(ExaltTestCase):
 </pokemon>
 """
         self.view.sel().add(sublime.Region(93, 175))
-        self.format_and_compare(content, after)
+        self.run_command_and_compare("exalt_format", content, after)
 
     def test_format_multiple_selections(self):
         content = """<pokemon>
@@ -180,7 +188,7 @@ male="50%" female="50%"/><catchRate>190</catchRate>
 """
         self.view.sel().add(sublime.Region(52, 134))
         self.view.sel().add(sublime.Region(135, 220))
-        self.format_and_compare(content, after)
+        self.run_command_and_compare("exalt_format", content, after)
 
 
 class ValidateTestCase(ExaltTestCase):

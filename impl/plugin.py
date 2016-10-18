@@ -45,6 +45,14 @@ class ExaltFormatCommand(TextCommand):
             view.run_command("exalt_format_selections")
 
 
+class ExaltCanonicalizeDocumentCommand(TextCommand):
+    def run(self, edit):
+        view = self.view
+        region = sublime.Region(0, view.size())
+        c14n = formatter.canonicalize_document(view, region)
+        view.replace(edit, region, c14n)
+
+
 class ExaltFormatDocumentCommand(ExaltFormatCommand):
     def run(self, edit):
         view = self.view

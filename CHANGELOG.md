@@ -1,5 +1,8 @@
 # Change Log
 
+## [0.3.0]
+- Add support for canonicalizing XML #2
+
 ## [0.2.1]
 - Fix XSLT validation error on Windows
 

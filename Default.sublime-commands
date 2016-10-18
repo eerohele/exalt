@@ -18,5 +18,9 @@
   {
     "caption": "Exalt: Clear Parser Cache",
     "command": "exalt_clear_cache"
+  },
+  {
+    "caption": "Exalt: Canonicalize Document",
+    "command": "exalt_canonicalize_document"
   }
 ]
