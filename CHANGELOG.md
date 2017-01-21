@@ -1,5 +1,8 @@
 # Change Log
 
+## [0.3.1]
+- Add support for xml-model declarations without @schematypens #4
+
 ## [0.3.0]
 - Add support for canonicalizing XML #2
 

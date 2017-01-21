@@ -34,6 +34,8 @@ def expand_schema_location(document):
 # Python 3.3 doesn't have enums, either.
 VALID_INTERNAL_SUBSET = read_file("markup/valid_internal_subset.xml")
 VALID_RNG = read_file("markup/valid_rng.xml")
+VALID_RNG_NO_SCHEMATYPENS = read_file("markup/valid_rng_no_schematypens.xml")
+VALID_DTD = expand_schema_location(read_file("markup/valid_dtd.xml"))
 VALID_SCHEMA_LOCATION = read_file("markup/valid_schema_location.xml")
 VALID_ISO_SCHEMATRON = expand_schema_location(read_file("markup/valid_iso_schematron.xml"))
 VALID_PRE_ISO_SCHEMATRON = expand_schema_location(read_file("markup/valid_pre_iso_schematron.xml"))
@@ -42,6 +44,8 @@ VALID_XSLT = read_file("markup/valid.xsl")
 
 INVALID_INTERNAL_SUBSET = read_file("markup/invalid_internal_subset.xml")
 INVALID_RNG = read_file("markup/invalid_rng.xml")
+INVALID_DTD = expand_schema_location(read_file("markup/invalid_dtd.xml"))
+INVALID_RNG_NO_SCHEMATYPENS = read_file("markup/invalid_rng_no_schematypens.xml")
 INVALID_SCHEMA_LOCATION = read_file("markup/invalid_schema_location.xml")
 INVALID_ISO_SCHEMATRON = expand_schema_location(read_file("markup/invalid_iso_schematron.xml"))
 INVALID_PRE_ISO_SCHEMATRON = expand_schema_location(read_file("markup/invalid_pre_iso_schematron.xml"))
@@ -212,6 +216,14 @@ class TestExaltValidateCommandValid(ValidateTestCase):
         self.validate_content_and_assert_status(VALID_RNG,
                                                 messages.VALID_MARKUP)
 
+    def test_validate_xml_valid_rng_no_schematypens(self):
+        self.validate_content_and_assert_status(VALID_RNG_NO_SCHEMATYPENS,
+                                                messages.VALID_MARKUP)
+
+    def test_validate_xml_valid_dtd(self):
+        self.validate_content_and_assert_status(VALID_DTD,
+                                                messages.VALID_MARKUP)
+
     def test_validate_xml_valid_schema_location(self):
         self.validate_content_and_assert_status(VALID_SCHEMA_LOCATION,
                                                 messages.VALID_MARKUP)
@@ -242,6 +254,14 @@ class TestExaltValidateCommandInvalid(ValidateTestCase):
     def test_validate_xml_invalid_rng(self):
         self.validate_content_and_assert_status(INVALID_RNG,
                                                 "Did not expect element INVALID there, line 7")
+
+    def test_validate_xml_invalid_dtd(self):
+        self.validate_content_and_assert_status(INVALID_DTD,
+                                                "No declaration for element world, line 5")
+
+    def test_validate_xml_invalid_rng_no_schematypens(self):
+        self.validate_content_and_assert_status(INVALID_RNG_NO_SCHEMATYPENS,
+                                                "Did not expect element INVALID there, line 6")
 
     def test_validate_xml_invalid_schema_location(self):
         self.validate_content_and_assert_status(INVALID_SCHEMA_LOCATION,

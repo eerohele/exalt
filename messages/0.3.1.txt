@@ -1,0 +1,8 @@
+Exalt
+=====
+
+Version 0.3.1 adds support for validating documents with an <?xml-model?>
+declaration with no @schematypens attribute.
+
+Exalt tries to guess the schema type from the file extension in the @href
+attribute of the <?xml-model?> declaration.

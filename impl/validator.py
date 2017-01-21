@@ -202,6 +202,17 @@ def _get_schematron_error_message(error):
                      namespaces={"svrl": isoschematron.SVRL_NS})[0]
 
 
+def _get_validator_for_extension(extension):
+    if extension == ".xsd":
+        return get_validator_for_namespace(isoschematron.XML_SCHEMA_NS)
+    elif extension == ".rng":
+        return get_validator_for_namespace(isoschematron.RELAXNG_NS)
+    elif extension == ".sch":
+        return get_validator_for_namespace(isoschematron.SVRL_NS)
+    else:
+        return None
+
+
 def _validate_against_xml_models(view, document):
     """Validate a document against all xml-model PIs in the document.
 
@@ -211,9 +222,21 @@ def _validate_against_xml_models(view, document):
         href = xml_model.get("href")
         namespace = xml_model.get("schematypens")
 
-        if href is None or namespace is None:
+        if href is None and namespace is None:
             break
-        elif not get_validator_for_namespace(namespace)(view, document, href):
-            return False
+        elif href is not None and namespace is None:
+            _, extension = os.path.splitext(href)
+
+            if extension == ".dtd":
+                validate_against_schema(etree.DTD, etree.DTDParseError, view, document, href)
+            else:
+                validator = _get_validator_for_extension(extension)
+
+                if validator is not None:
+                    validator(view, document, href)
+                else:
+                    return False
+        else:
+            return get_validator_for_namespace(namespace)(view, document, href)
 
     return True
