@@ -101,7 +101,8 @@ Exalt tries to format non-well-formed XML files via the [libxml2][libxml2]
 ## Installing
 
 1. Install Exalt via [Package Control][package-control].
-2. (*Optional, but recommended*.) In `User/Exalt.sublime-settings`, set the
+2. Restart Sublime Text.
+3. (*Optional, but recommended*.) In `User/Exalt.sublime-settings`, set the
    path to your [XML catalog files][xml-catalog].
 
     For example:
