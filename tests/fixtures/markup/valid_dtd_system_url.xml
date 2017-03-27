@@ -1,0 +1,2 @@
+<!DOCTYPE hello SYSTEM "${schema}/hello.dtd">
+<hello>Hello, world!</hello>

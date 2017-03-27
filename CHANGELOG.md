@@ -1,5 +1,8 @@
 # Change Log
 
+## [0.3.2]
+- Add support for SYSTEM URLs in DOCTYPE declarations #8
+
 ## [0.3.1]
 - Add support for xml-model declarations without @schematypens #4
 

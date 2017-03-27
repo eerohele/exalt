@@ -90,10 +90,20 @@ def validate_against_dtd(view, document):
 
     TODO: Add support for external subsets and system identifiers.
     """
-    internal_subset = document.docinfo.internalDTD
+    docinfo = document.docinfo
+    internal_subset = docinfo.internalDTD
+    system_url = docinfo.system_url
 
-    if internal_subset is None:
+    if internal_subset is None and system_url is None:
         return False
+    if internal_subset.external_id is None and system_url is not None:
+        try:
+            file = utils.resolve_file_path(system_url, view.file_name())
+            validator = _get_validator(system_url, etree.DTD, file=file)
+
+            return validate(view, document, validator)
+        except etree.DTDParseError as e:
+            return vu.show_error(view, e)
     elif internal_subset.external_id is not None:
         # <!DOCTYPE map PUBLIC "-//OASIS//DTD DITA Map//EN" "map.dtd">
         id = bytes(internal_subset.external_id, encodings.UTF8)
