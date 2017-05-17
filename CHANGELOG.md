@@ -1,5 +1,9 @@
 # Change Log
 
+## [0.3.3]
+- Merge the `$XML_CATALOG_FILES` environment variable with the
+  "xml_catalog_files" Exalt setting #11
+
 ## [0.3.2]
 - Add support for SYSTEM URLs in DOCTYPE declarations #8
 
