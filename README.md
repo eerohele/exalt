@@ -4,9 +4,9 @@ Exalt
 If you have the misfortune of having to work with XML, this is the
 [Sublime Text 3][st3] plugin for you.
 
-<img src="https://nw.kapsi.fi/exalt.png"/>
+<img src="screenshot.png"/>
 
-*The theme in the screenshot is [Material][material].*
+*The theme in the screenshot is [Boxy][boxy].*
 
 ## Features
 
@@ -167,7 +167,7 @@ Exalt tries to format non-well-formed XML files via the [libxml2][libxml2]
 [libxml2-#753997]: https://bugzilla.gnome.org/show_bug.cgi?id=753997
 [lxml]: http://lxml.de
 [catalogs]: https://github.com/eerohele/catalogs
-[material]: https://github.com/equinusocio/material-theme
+[boxy]: https://packagecontrol.io/packages/Boxy%20Theme
 [maven]: https://maven.apache.org
 [ndw]: https://github.com/ndw/xslt-relax-ng
 [package-control]: https://packagecontrol.io
