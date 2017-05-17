@@ -68,6 +68,22 @@ class TestExaltPlugin(TestCase):
             "~" not in exalt.file_to_uri("~/.local")
         )
 
+    def test_get_catalog_files_non_none(self):
+        os.environ["XML_CATALOG_FILES"] = "/a/b.xml file:///c/d.xml"
+
+        self.assertEqual(
+            exalt.get_catalog_files(["/c/d.xml", "/e/f.xml"]),
+            {"/a/b.xml", "file:///c/d.xml", "file:///e/f.xml"}
+        )
+
+    def test_get_catalog_files_none(self):
+        os.environ["XML_CATALOG_FILES"] = "/a/b.xml file:///c/d.xml"
+
+        self.assertEqual(
+            exalt.get_catalog_files(None),
+            {"/a/b.xml", "file:///c/d.xml"}
+        )
+
 
 class ExaltTestCase(TestCase):
     def setUpClass():

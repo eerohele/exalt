@@ -11,11 +11,16 @@ from sublime_plugin import TextCommand, EventListener
 import Exalt.encodings as encodings
 import Exalt.constants as constants
 import Exalt.exalt as exalt
+import Exalt.settings as settings
 import Exalt.view as vu
 
 # XML_CATALOG_FILES needs to be set *before* lxml is loaded:
 # http://permalink.gmane.org/gmane.comp.python.lxml.devel/7501
-os.environ["XML_CATALOG_FILES"] = exalt.get_catalog_files()
+os.environ["XML_CATALOG_FILES"] = " ".join(
+    exalt.get_catalog_files(
+        exalt.get_setting(settings.XML_CATALOG_FILES)
+    )
+)
 
 # lxml is delivered as a Package Control dependency.
 #

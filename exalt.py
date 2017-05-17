@@ -52,18 +52,19 @@ def file_to_uri(file):
     return urljoin("file:", pathname2url(expanduser(file)))
 
 
-def get_catalog_files():
+def get_catalog_files(setting):
     # lxml uses the $XML_CATALOG_FILES environment variable to look for
     # XML catalog files, and since it's a bit tricky to set the variable
     # so that Sublime Text can see it on every platform, the user can add
     # their own catalog files in the plugin settings.
-    catalog_files = get_setting(settings.XML_CATALOG_FILES)
 
     # Convert paths to URLs so that lxml can parse catalog paths with
     # spaces in them.
-    catalog_urls = map(lambda file: file_to_uri(file), catalog_files)
+    catalog_files = setting or []
+    catalog_urls = set(map(lambda file: file_to_uri(file), catalog_files))
+    env = set((os.environ.get("XML_CATALOG_FILES") or "").split(" "))
 
-    return " ".join(catalog_urls)
+    return env.union(catalog_urls)
 
 
 def reload_settings():
