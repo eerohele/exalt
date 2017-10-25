@@ -9,7 +9,6 @@ import Exalt.namespaces as namespaces
 import Exalt.utils as utils
 import Exalt.exalt as exalt
 
-from urllib.request import pathname2url
 from functools import partial
 
 from lxml import etree
@@ -238,7 +237,13 @@ def _validate_against_xml_models(view, document):
             _, extension = os.path.splitext(href)
 
             if extension == ".dtd":
-                validate_against_schema(etree.DTD, etree.DTDParseError, view, document, href)
+                validate_against_schema(
+                    etree.DTD,
+                    etree.DTDParseError,
+                    view,
+                    document,
+                    href
+                )
             else:
                 validator = _get_validator_for_extension(extension)
 

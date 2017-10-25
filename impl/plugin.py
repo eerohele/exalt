@@ -120,7 +120,8 @@ class ExaltValidateCommand(TextCommand):
                 relax_ng = validator.get_xslt_relaxng_path(version)
 
                 v = validator.get_validator_for_namespace(
-                      isoschematron.RELAXNG_NS)(view, doc, relax_ng)
+                    isoschematron.RELAXNG_NS
+                )(view, doc, relax_ng)
 
                 invoke_async(lambda: v, 0)
             else:

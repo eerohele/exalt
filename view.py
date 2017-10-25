@@ -1,7 +1,6 @@
 import os
 import sublime
 
-import Exalt.messages as messages
 import Exalt.constants as constants
 import Exalt.settings as settings
 import Exalt.exalt as exalt

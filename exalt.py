@@ -9,7 +9,6 @@ import sublime
 import sublime_plugin
 
 import Exalt.constants as constants
-import Exalt.settings as settings
 
 
 class LimitedOrderedDict(OrderedDict):

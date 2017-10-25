@@ -3,7 +3,6 @@ import sys
 import os
 
 from unittest import TestCase
-from urllib.request import pathname2url
 
 exalt = sys.modules["Exalt.exalt"]
 
