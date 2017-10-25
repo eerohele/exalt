@@ -306,4 +306,4 @@ class TestExaltValidateCommandInvalid(ValidateTestCase):
 
     def test_validate_xml_non_well_formed(self):
         self.validate_content_and_assert_status(NON_WELL_FORMED_XML,
-                                                "error parsing attribute name, line 11, column 5")
+                                                "error parsing attribute name, line 11, column 5 (<string>, line 11)")
