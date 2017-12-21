@@ -94,6 +94,7 @@ def validate_against_dtd(view, document):
     system_url = docinfo.system_url
 
     if internal_subset is None and system_url is None:
+        declare_valid(view)
         return False
     if internal_subset.external_id is None and system_url is not None:
         try:

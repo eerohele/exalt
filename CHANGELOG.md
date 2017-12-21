@@ -1,5 +1,8 @@
 # Change Log
 
+## [0.3.4]
+- Clear error message for valid document #13
+
 ## [0.3.3]
 - Merge the `$XML_CATALOG_FILES` environment variable with the
   "xml_catalog_files" Exalt setting #11

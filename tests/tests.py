@@ -115,6 +115,10 @@ class ExaltTestCase(TestCase):
     def get_view_content(self):
         return self.view.substr(sublime.Region(0, self.view.size()))
 
+    def clear_view(self):
+        self.view.run_command("select_all")
+        self.view.run_command("right_delete")
+
 
 class TestExaltFormatCommand(ExaltTestCase):
     def run_command_and_compare(self, command, content, after):
@@ -219,7 +223,14 @@ class ValidateTestCase(ExaltTestCase):
         self.assertEqual(self.view.get_status(constants.PLUGIN_NAME), status)
 
 
-class TestExaltValidateCommandValid(ValidateTestCase):
+class TestExaltValidateCommand(ValidateTestCase):
+    def test_validate_xml_without_schema(self):
+        self.validate_content_and_assert_status("<a/>", messages.VALID_MARKUP)
+        self.clear_view()
+        self.validate_content_and_assert_status("<a/", "error parsing attribute name, line 1, column 3 (<string>, line 1)")
+        self.clear_view()
+        self.validate_content_and_assert_status("<a/>", messages.VALID_MARKUP)
+
     def test_validate_xml_valid_xslt(self):
         self.set_xslt_syntax()
         self.validate_content_and_assert_status(VALID_XSLT,
@@ -261,8 +272,6 @@ class TestExaltValidateCommandValid(ValidateTestCase):
         self.validate_content_and_assert_status(VALID_XHTML,
                                                 messages.VALID_MARKUP)
 
-
-class TestExaltValidateCommandInvalid(ValidateTestCase):
     def test_validate_xml_invalid_xslt(self):
         self.set_xslt_syntax()
         self.validate_content_and_assert_status(INVALID_XSLT,
