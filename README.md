@@ -98,6 +98,19 @@ isn't well-formed, chances are the result is not what you want.
 Exalt tries to format non-well-formed XML files via the [libxml2][libxml2]
 `recover` flag.
 
+### Schema caching
+
+Exalt caches the schemas it uses for performance. This is useful if you're
+working on XML documents that use large schemas or when the schema is stored
+elsewhere than your computer.
+
+However, this means that if you're developing a schema, the changes in the
+schema will not take effect until you clear the Exalt schema cache.
+
+To clear the schema cache, run the `Exalt: Clear Parser Cache` command via
+the Sublime Text command palette. If you need to do it often, you might want
+to add a keyboard shortcut for that command in the Sublime Text settings.
+
 ## Installing
 
 1. Install Exalt via [Package Control][package-control].
