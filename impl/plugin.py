@@ -112,7 +112,12 @@ class ExaltValidateCommand(TextCommand):
             return
 
         try:
-            parser = parsetools.get_parser(view, encoding=encodings.UTF8)
+            parser = parsetools.get_parser(
+                view,
+                encoding=encodings.UTF8,
+                load_dtd=True
+            )
+
             doc = parsetools.parse_string(view, parser, vu.get_content(view))
 
             if vu.is_xslt(view):

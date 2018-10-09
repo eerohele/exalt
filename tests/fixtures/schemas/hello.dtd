@@ -1,1 +1,2 @@
 <!ELEMENT hello (#PCDATA)>
+<!ENTITY shy "&#173;">
