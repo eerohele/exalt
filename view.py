@@ -25,8 +25,23 @@ def get_syntax(view):
     return os.path.splitext(os.path.basename(syntax_file))[0]
 
 
+def has_xml_scope(scope):
+    if not scope:
+        return False
+    else:
+        scope_names = scope.split(" ")
+        return any(map(lambda s: s.startswith("text.xml"), scope_names))
+
+
 def is_xml(view):
-    return get_syntax(view) in ["XML", "XHTML", "XSL", "XSLT"]
+    regions = view.sel()
+
+    if not regions:
+        return False
+    else:
+        position = regions[0].begin()
+        scope = view.scope_name(position)
+        return has_xml_scope(scope)
 
 
 def is_html(view):
