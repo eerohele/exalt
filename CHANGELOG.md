@@ -1,5 +1,8 @@
 # Change Log
 
+## [0.3.5]
+- Load entities in external DTDs #15
+
 ## [0.3.4]
 - Clear error message for valid document #13
 
