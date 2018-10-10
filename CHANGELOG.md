@@ -1,5 +1,11 @@
 # Change Log
 
+## 0.3.6
+- Improve XML syntax detection #14
+
+    A document is now interpreted to be an XML document if the current syntax
+    includes "text.xml".
+
 ## 0.3.5
 - Load entities in external DTDs #15
 
