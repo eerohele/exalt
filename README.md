@@ -1,23 +1,25 @@
 Exalt
 =====
 
-If you have the misfortune of having to work with XML, this is the
-[Sublime Text 3][st3] plugin for you.
+Exalt is a [Sublime Text 3] plugin for validating and formatting XML documents.
 
 <img src="screenshot.png"/>
 
-*The theme in the screenshot is [Boxy][boxy].*
+*The theme in the screenshot is [Boxy].*
 
 ## Features
 
 ### Validate files on the fly
 
-Validate XML, XHTML, HTML, and XSLT files on the fly with [lxml][lxml]
-against a [Document Type Definition][dtd] (DTD), an [XML schema][xsd]
-(XSD), a [RelaxNG schema][rng] (RNG), or a [Schematron schema][schematron].
+Validate XML, XHTML, and XSLT files on the fly with [lxml]
+with these validation mechanisms:
 
-Exalt supports [XML catalogs][xml-catalog] via [lxml][lxml] so that you
-don't need to put [unnecessary load on W3C's servers][w3c-dtd].
+- [Document Type Definition][dtd] (DTD)
+- [XML schema][xsd] (XSD)
+- [RelaxNG schema][rng] (RNG)
+- [Schematron schema][schematron]
+
+Exalt supports [XML catalogs][xml-catalog] via [lxml][lxml].
 
 #### XSLT validation
 
@@ -61,12 +63,12 @@ of course):
             schematypens="http://relaxng.org/ns/structure/1.0"?>
 ```
 
-Exalt will then validate against the schema in the `href` pseudo-attribute. It
+Exalt will validate against the schema in the `href` pseudo-attribute. It
 uses the XML catalog you've set up to resolve the path in the `href`
 pseudo-attribute and the `schematypens` pseudo-attribute to determine the the
 type of the schema.
 
-You can naturally use absolute or relative paths, too:
+You can also use absolute or relative paths in the `href` pseudo-attribute:
 
 ```xml
 <!-- Relax NG -->
@@ -91,7 +93,7 @@ Press `⌘ + Ctrl + X` to reformat (pretty-print) an XML or HTML file. If
 you have nothing selected, Exalt will format the entire document. If you
 have one or more selections, Exalt will format those.
 
-*NOTE*: When formatting a selection, Exalt assumes the selection is a
+**NOTE**: When formatting a selection, Exalt assumes the selection is a
 well-formed XML fragment. It will try to recover, but if your selection
 isn't well-formed, chances are the result is not what you want.
 
@@ -143,29 +145,18 @@ to add a keyboard shortcut for that command in the Sublime Text settings.
       <nextCatalog catalog="catalogs/catalog.xml"/>
     </catalog>
     ```
-    
-    If you do that, you shouldn't need to set the `xml_catalog_files` setting.
-    
+
+    If you do that, you don't have to set the `xml_catalog_files` setting.
+
     **NOTE**: If you change XML catalogs in any way, you need to restart
     Sublime Text 3 for the changes to take effect.
 
 ## Known issues
 
 - Due to libxml2 issues [#573483][libxml2-#573483], [#753970][libxml2-#753970],
-  and [753997][libxml2-#753997], **none** of the available validation methods
-  work for DITA 1.3 files. That's a bit of a bummer.
+  and [#753997][libxml2-#753997], **none** of the available validation methods
+  work for DITA 1.3 files.
 - ISO Schematron validation doesn't always report the error position correctly.
-
-## Other caveats
-
-- There's probably many encoding things I didn't take into account. UTF-8
-  content should work OK.
-- I don't really know Python.
-
-## TODO
-
-- DTD validation support is incomplete.
-- More unit tests are needed.
 
 ## Acknowledgements
 - Norman Walsh for his [RelaxNG grammars for XSLT stylesheets][ndw].
@@ -180,14 +171,14 @@ to add a keyboard shortcut for that command in the Sublime Text settings.
 [libxml2-#753997]: https://bugzilla.gnome.org/show_bug.cgi?id=753997
 [lxml]: http://lxml.de
 [catalogs]: https://github.com/eerohele/catalogs
-[boxy]: https://packagecontrol.io/packages/Boxy%20Theme
+[Boxy]: https://packagecontrol.io/packages/Boxy%20Theme
 [maven]: https://maven.apache.org
 [ndw]: https://github.com/ndw/xslt-relax-ng
 [package-control]: https://packagecontrol.io
 [py3]: https://www.python.org
 [rng]: http://relaxng.org
 [schematron]: http://schematron.com/
-[st3]: http://www.sublimetext.com/3
+[Sublime Text 3]: http://www.sublimetext.com/3
 [sublimexslt]: https://github.com/hoest/SublimeXSLT
 [w3c-dtd]: http://www.w3.org/blog/systeam/2008/02/08/w3c_s_excessive_dtd_traffic/
 [xml-catalog]: http://xmlsoft.org/catalog.html
