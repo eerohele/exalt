@@ -2,6 +2,7 @@ import os
 import sublime
 
 import Exalt.constants as constants
+import Exalt.messages as messages
 import Exalt.settings as settings
 import Exalt.exalt as exalt
 
@@ -14,9 +15,14 @@ def get_content(view):
     return view.substr(sublime.Region(0, view.size()))
 
 
+def erase_status(view):
+    if view.get_status(constants.PLUGIN_NAME) == messages.VALID_MARKUP:
+        view.erase_status(constants.PLUGIN_NAME)
+
+
 def reset_status(view):
     sublime.set_timeout(lambda:
-                        view.erase_status(constants.PLUGIN_NAME),
+                        erase_status(view),
                         constants.RESET_STATUS_TIMEOUT)
 
 
@@ -93,4 +99,4 @@ def show_error(view, message, error=None):
         if scroll:
             view.show_at_center(point)
 
-    return False
+    return True

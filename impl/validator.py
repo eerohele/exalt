@@ -94,7 +94,6 @@ def validate_against_dtd(view, document):
     system_url = docinfo.system_url
 
     if internal_subset is None and system_url is None:
-        declare_valid(view)
         return False
     if internal_subset.external_id is None and system_url is not None:
         try:
@@ -125,8 +124,7 @@ def try_validate(view, document):
     if not validate_against_dtd(view, document):
         if not validate_against_xml_schema(view, document):
             if not validate_against_xml_schema(view, document, mode="URI"):
-                if not _validate_against_xml_models(view, document):
-                    return False
+                return _validate_against_xml_models(view, document)
 
 
 def validate(view, document, validator):
@@ -229,31 +227,36 @@ def _validate_against_xml_models(view, document):
 
     If the document is invalid, stop. If it's valid, move onto the next
     PI."""
-    for xml_model in _get_xml_models(document):
-        href = xml_model.get("href")
-        namespace = xml_model.get("schematypens")
+    models = _get_xml_models(document)
 
-        if href is None and namespace is None:
-            break
-        elif href is not None and namespace is None:
-            _, extension = os.path.splitext(href)
+    if not models:
+        declare_valid(view)
+        return False
+    else:
+        for xml_model in models:
+            href = xml_model.get("href")
+            namespace = xml_model.get("schematypens")
 
-            if extension == ".dtd":
-                validate_against_schema(
-                    etree.DTD,
-                    etree.DTDParseError,
-                    view,
-                    document,
-                    href
-                )
-            else:
-                validator = _get_validator_for_extension(extension)
+            if href is None and namespace is None:
+                break
+            elif href is not None and namespace is None:
+                _, extension = os.path.splitext(href)
 
-                if validator is not None:
-                    validator(view, document, href)
+                if extension == ".dtd":
+                    return validate_against_schema(
+                        etree.DTD,
+                        etree.DTDParseError,
+                        view,
+                        document,
+                        href
+                    )
                 else:
-                    return False
-        else:
-            return get_validator_for_namespace(namespace)(view, document, href)
+                    validator = _get_validator_for_extension(extension)
 
-    return True
+                    if validator is not None:
+                        return validator(view, document, href)
+                    else:
+                        return False
+            else:
+                validator = get_validator_for_namespace(namespace)
+                return validator(view, document, href)
