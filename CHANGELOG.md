@@ -1,5 +1,13 @@
 # Change Log
 
+## 0.3.7
+- Add support for namespace-based XML schema resolution #19
+
+    XML schema validation now tries resolving against the namespace in the
+    `xsi:schemaLocation` attribute first and only then against the URI.
+
+- Fix disappearing validation error #20
+
 ## 0.3.6
 - Improve XML syntax detection #14
 
