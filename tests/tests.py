@@ -37,6 +37,9 @@ VALID_RNG_NO_SCHEMATYPENS = read_file("markup/valid_rng_no_schematypens.xml")
 VALID_DTD = expand_schema_location(read_file("markup/valid_dtd.xml"))
 VALID_DTD_SYSTEM_URL = expand_schema_location(read_file("markup/valid_dtd_system_url.xml"))
 VALID_SCHEMA_LOCATION = read_file("markup/valid_schema_location.xml")
+VALID_NONAMESPACESCHEMALOCATION = read_file("markup/valid_nonamespaceschemalocation.xml")
+VALID_SCHEMA_LOCATION_URI = read_file("markup/valid_schema_location_uri.xml")
+VALID_SCHEMA_LOCATION_NAMESPACE = read_file("markup/valid_schema_location_namespace.xml")
 VALID_ISO_SCHEMATRON = expand_schema_location(read_file("markup/valid_iso_schematron.xml"))
 VALID_PRE_ISO_SCHEMATRON = expand_schema_location(read_file("markup/valid_pre_iso_schematron.xml"))
 VALID_XHTML = read_file("markup/valid_xhtml.html")
@@ -48,6 +51,9 @@ INVALID_DTD = expand_schema_location(read_file("markup/invalid_dtd.xml"))
 INVALID_DTD_SYSTEM_URL = expand_schema_location(read_file("markup/invalid_dtd_system_url.xml"))
 INVALID_RNG_NO_SCHEMATYPENS = read_file("markup/invalid_rng_no_schematypens.xml")
 INVALID_SCHEMA_LOCATION = read_file("markup/invalid_schema_location.xml")
+INVALID_NONAMESPACESCHEMALOCATION = read_file("markup/invalid_nonamespaceschemalocation.xml")
+INVALID_SCHEMA_LOCATION_URI = read_file("markup/invalid_schema_location_uri.xml")
+INVALID_SCHEMA_LOCATION_NAMESPACE = read_file("markup/invalid_schema_location_namespace.xml")
 INVALID_ISO_SCHEMATRON = expand_schema_location(read_file("markup/invalid_iso_schematron.xml"))
 INVALID_PRE_ISO_SCHEMATRON = expand_schema_location(read_file("markup/invalid_pre_iso_schematron.xml"))
 INVALID_XHTML = read_file("markup/invalid_xhtml.html")
@@ -260,6 +266,18 @@ class TestExaltValidateCommand(ValidateTestCase):
         self.validate_content_and_assert_status(VALID_SCHEMA_LOCATION,
                                                 messages.VALID_MARKUP)
 
+    def test_validate_xml_valid_schema_location(self):
+        self.validate_content_and_assert_status(VALID_NONAMESPACESCHEMALOCATION,
+                                                messages.VALID_MARKUP)
+
+    def test_validate_xml_valid_schema_location_uri(self):
+        self.validate_content_and_assert_status(VALID_SCHEMA_LOCATION_URI,
+                                                messages.VALID_MARKUP)
+
+    def test_validate_xml_valid_schema_location_namespace(self):
+        self.validate_content_and_assert_status(VALID_SCHEMA_LOCATION_NAMESPACE,
+                                                messages.VALID_MARKUP)
+
     def test_validate_xml_valid_iso_schematron(self):
         self.validate_content_and_assert_status(VALID_ISO_SCHEMATRON,
                                                 messages.VALID_MARKUP)
@@ -299,6 +317,18 @@ class TestExaltValidateCommand(ValidateTestCase):
 
     def test_validate_xml_invalid_schema_location(self):
         self.validate_content_and_assert_status(INVALID_SCHEMA_LOCATION,
+                                                "Element '{http://maven.apache.org/POM/4.0.0}INVALID': This element is not expected., line 7")
+
+    def test_validate_xml_invalid_nonamespaceschemalocation(self):
+        self.validate_content_and_assert_status(INVALID_NONAMESPACESCHEMALOCATION,
+                                                "Element '{http://maven.apache.org/POM/4.0.0}INVALID': This element is not expected., line 6")
+
+    def test_validate_xml_invalid_schema_location(self):
+        self.validate_content_and_assert_status(INVALID_SCHEMA_LOCATION_URI,
+                                                "Element '{http://maven.apache.org/POM/4.0.0}INVALID': This element is not expected., line 7")
+
+    def test_validate_xml_invalid_schema_location(self):
+        self.validate_content_and_assert_status(INVALID_SCHEMA_LOCATION_NAMESPACE,
                                                 "Element '{http://maven.apache.org/POM/4.0.0}INVALID': This element is not expected., line 7")
 
     def test_validate_xml_invalid_iso_schematron(self):

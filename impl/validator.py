@@ -74,11 +74,11 @@ def get_validator_for_namespace(namespace):
         return partial(fn, etree.Schematron, etree.SchematronParseError)
 
 
-def validate_against_xml_schema(view, document, schema_file=None):
+def validate_against_xml_schema(view, document, mode="namespace"):
+    schema_file = _get_xml_schema_instance(document, mode)
+
     if schema_file is None:
-        schema_file = _get_xml_schema_instance(document)
-        if schema_file is None:
-            return False
+        return False
 
     validator = get_validator_for_namespace(isoschematron.XML_SCHEMA_NS)
     return validator(view, document, schema_file)
@@ -124,8 +124,9 @@ def validate_against_dtd(view, document):
 def try_validate(view, document):
     if not validate_against_dtd(view, document):
         if not validate_against_xml_schema(view, document):
-            if not _validate_against_xml_models(view, document):
-                return False
+            if not validate_against_xml_schema(view, document, mode="URI"):
+                if not _validate_against_xml_models(view, document):
+                    return False
 
 
 def validate(view, document, validator):
@@ -174,7 +175,7 @@ def _get_validator(id, parser, **kwargs):
     return validator
 
 
-def _get_xml_schema_instance(document):
+def _get_xml_schema_instance(document, mode):
     root = document.getroot()
     xsi = root.xpath("@xsi:schemaLocation | @xsi:noNamespaceSchemaLocation",
                      namespaces={"xsi": namespaces.XSI})
@@ -182,7 +183,7 @@ def _get_xml_schema_instance(document):
     if len(xsi) == 0:
         return None
 
-    return xsi[0].split()[-1]
+    return xsi[0].split()[0 if mode == "namespace" else -1]
 
 
 def _get_xml_models(document):
