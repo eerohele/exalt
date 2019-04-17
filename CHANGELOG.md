@@ -1,5 +1,8 @@
 # Change Log
 
+## 0.3.8
+- Fix XML schema validation without catalog #21
+
 ## 0.3.7
 - Add support for namespace-based XML schema resolution #19
 

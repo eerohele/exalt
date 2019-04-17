@@ -136,7 +136,7 @@ class ExaltValidateCommand(TextCommand):
 
             if constants.LXML_NO_DTD_FOUND not in message:
                 error = parser.error_log.filter_from_errors()[0]
-                return vu.show_error(view, message, error)
+                vu.show_error(view, message, error)
 
 
 class ExaltGoToErrorCommand(TextCommand):

@@ -98,5 +98,3 @@ def show_error(view, message, error=None):
 
         if scroll:
             view.show_at_center(point)
-
-    return True

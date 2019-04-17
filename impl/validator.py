@@ -53,7 +53,8 @@ def validate_against_schema(parser, error, view, document, schema_path):
         validator = _get_validator(file, parser, file=file)
         return validate(view, document, validator)
     except (error, etree.XSLTApplyError) as e:
-        return vu.show_error(view, e)
+        vu.show_error(view, e)
+        return False
 
 
 def get_validator_for_namespace(namespace):
@@ -102,7 +103,8 @@ def validate_against_dtd(view, document):
 
             return validate(view, document, validator)
         except etree.DTDParseError as e:
-            return vu.show_error(view, e)
+            vu.show_error(view, e)
+            return False
     elif internal_subset.external_id is not None:
         # <!DOCTYPE map PUBLIC "-//OASIS//DTD DITA Map//EN" "map.dtd">
         id = bytes(internal_subset.external_id, encodings.UTF8)
@@ -111,18 +113,20 @@ def validate_against_dtd(view, document):
             validator = _get_validator(id, etree.DTD, external_id=id)
             return validate(view, document, validator)
         except etree.DTDParseError as e:
-            return vu.show_error(view, e)
+            vu.show_error(view, e)
+            return False
     else:
         # <!DOCTYPE people_list [ <!ELEMENT people_list (person)*> ]>
         try:
             return validate(view, document, internal_subset)
         except etree.DTDParseError as e:
-            return vu.show_error(view, e)
+            vu.show_error(view, e)
+            return False
 
 
 def try_validate(view, document):
     if not validate_against_dtd(view, document):
-        if not validate_against_xml_schema(view, document):
+        if not validate_against_xml_schema(view, document,):
             if not validate_against_xml_schema(view, document, mode="URI"):
                 return _validate_against_xml_models(view, document)
 
@@ -136,7 +140,8 @@ def validate(view, document, validator):
             message = _get_schematron_error_message(e)
         else:
             message = e
-        return vu.show_error(view, message, validator.error_log[0])
+        vu.show_error(view, message, validator.error_log[0])
+        return True
     except OSError:
         vu.set_status(view, messages.SCHEMA_RESOLVE_ERROR % id)
         return False
