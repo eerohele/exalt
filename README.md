@@ -180,7 +180,7 @@ to add a keyboard shortcut for that command in the Sublime Text settings.
 [py3]: https://www.python.org
 [rng]: http://relaxng.org
 [schematron]: http://schematron.com/
-[Sublime Text 3]: http://www.sublimetext.com/3
+[Sublime Text]: http://www.sublimetext.com/3
 [sublimexslt]: https://github.com/hoest/SublimeXSLT
 [w3c-dtd]: http://www.w3.org/blog/systeam/2008/02/08/w3c_s_excessive_dtd_traffic/
 [xml-catalog]: http://xmlsoft.org/catalog.html
