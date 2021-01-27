@@ -3,7 +3,7 @@ Exalt
 
 Exalt is a [Sublime Text] plugin for validating and formatting XML documents.
 
-**Note**: You might also want to check out [LSP-lemmix](https://packagecontrol.io/packages/LSP-lemminx).
+**Note**: You might also want to check out [LSP-lemminx](https://packagecontrol.io/packages/LSP-lemminx).
 
 <img src="screenshot.png"/>
 
